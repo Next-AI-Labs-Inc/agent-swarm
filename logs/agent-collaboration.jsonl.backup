@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-10-31T05:27:35Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_83405",
+  "repo": "agent-collaboration",
+  "event_type": "intent",
+  "context": "INIT COMMAND protocol - how to work with this user",
+  "command": "",
+  "lesson": "when scope is authorized never stop work for approval - narrate each step in UX terms (not technical) stating what you are doing how it connects to intent and specific UX being created then immediately proceed - state scope in 3+ sentences minimum - always state assumptions explicitly - communicate in UX translation not technical jargon",
+  "success_rate": "",
+  "tags": [
+    "workflow",
+    "communication",
+    "ux",
+    "scope",
+    "init-command"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:24Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85531",
+  "repo": "agent-collaboration",
+  "event_type": "pattern",
+  "context": "UX translation vs technical translation requirement",
+  "command": "",
+  "lesson": "WRONG: got modal showing - RIGHT: for not signed in users when they reach 30 cents token usage we show paywall and stop API costs - always state UX in terms of user experience constraints intentions and resulting behavior - cite what user asked for and how code delivers it",
+  "success_rate": "10/10",
+  "tags": [
+    "communication",
+    "ux-translation",
+    "verification",
+    "user-stories"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:33Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85777",
+  "repo": "agent-collaboration",
+  "event_type": "pattern",
+  "context": "Verification steps format - deterministic and under 30 seconds",
+  "command": "",
+  "lesson": "WRONG: run tests - RIGHT: go to localhost:3000 click X open Y check Z appears - or create admin-only quick verification URL - always test yourself first then document findings - provide dead simple steps that prove it works in reality not just in code",
+  "success_rate": "10/10",
+  "tags": [
+    "verification",
+    "testing",
+    "deterministic",
+    "ux-validation"
+  ]
+}

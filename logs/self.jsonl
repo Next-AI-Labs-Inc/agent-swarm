@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-10-31T06:54:23Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97088",
+  "repo": "self",
+  "event_type": "intent",
+  "context": "When JSX closing tag errors occur in MenuPage.tsx after git merge",
+  "command": "",
+  "lesson": "MenuPage.tsx had unresolved merge conflict markers (<<<<<<< HEAD) from commit 52a75b403 causing JSX structure errors. Solution: restore clean version from commit 350f15199 before bad merge, then reapply DesktopDiagnosticsWidget additions with correct div closing structure. Files: src/admin/components/menu/MenuPage.tsx",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "jsx",
+    "merge-conflict",
+    "menupage",
+    "git",
+    "troubleshooting"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:33Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97427",
+  "repo": "self",
+  "event_type": "pattern",
+  "context": "When Electron desktop app crashes with 'await is only valid in async functions'",
+  "command": "",
+  "lesson": "Electron main.js used top-level await for ES module import (electron-is-dev) in CommonJS file. Solution: wrap dynamic import in async IIFE to avoid top-level await. Pattern: let isDev = false; (async () => { const module = await import('electron-is-dev'); isDev = module.default; })(); File: desktop/main.js line 9-13",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "electron",
+    "desktop",
+    "async",
+    "await",
+    "es-modules",
+    "commonjs"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:43Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97691",
+  "repo": "self",
+  "event_type": "intent",
+  "context": "When coaching integration redirects to wrong port in development",
+  "command": "",
+  "lesson": "Coaching redirects were hardcoded to localhost:3000 but should use localhost:3005 in dev. Updated three files: coachingIntegration.ts line 223, MenuGroupModals.tsx lines 489-491, AuthContext.js line 115. All development coaching flows now redirect to port 3005 where gptcoach2 runs.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "coaching",
+    "redirect",
+    "port",
+    "localhost",
+    "integration"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:57Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97976",
+  "repo": "self",
+  "event_type": "pattern",
+  "context": "When understanding IX authentication architecture across repos",
+  "command": "",
+  "lesson": "IX uses universal authentication pattern: auth3.1 repo (localhost:5982) handles all login/signup UI, calls API repo for validation and session cookies, redirects back to originating app. Self repo should NOT use REACT_APP_USE_NATIVE_AUTH flag - must redirect to auth3.1 via PrivateRoute buildExternalLoginUrl() with return_to parameter for post-login redirect.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "authentication",
+    "auth3.1",
+    "universal-auth",
+    "architecture",
+    "session",
+    "api-repo"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:55:10Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_98266",
+  "repo": "self",
+  "event_type": "error",
+  "context": "When I misunderstood authentication intent and enabled native auth",
+  "command": "",
+  "lesson": "I initially misunderstood and set REACT_APP_USE_NATIVE_AUTH=true thinking user wanted login on port 3005. Admin clarified universal auth requirement: ALL apps forward to auth3.1 repo for authentication, not handle login internally. Disabled flag in .env line 28-29. Lesson: always confirm authentication architecture intent before changing auth flow.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "misunderstanding",
+    "authentication",
+    "native-auth",
+    "clarification"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:55:20Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_98502",
+  "repo": "self",
+  "event_type": "success",
+  "context": "Session completion - MenuPage JSX fix and auth configuration",
+  "command": "",
+  "lesson": "Completed: (1) Fixed MenuPage.tsx merge conflict by restoring from commit 350f15199, (2) Fixed Electron desktop/main.js top-level await crash, (3) Updated coaching redirects to port 3005, (4) Disabled native auth to use universal auth3.1 flow. All changes committed. Next: Test auth redirect flow from Self -> auth3.1 -> back to Self after login.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "session",
+    "completion",
+    "checkpoint",
+    "menupage",
+    "electron",
+    "auth"
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "timestamp": "2025-10-31T06:52:39Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_91667",
+  "repo": "auth3.1",
+  "event_type": "intent",
+  "context": "When auth3.1 frontend needs to authenticate with ixcoach-api backend",
+  "command": "",
+  "lesson": "Auth3.1 uses Next.js API proxy at /api/proxy/[...path].ts to forward requests to ixcoach-api. The proxy reads session token from 'token' cookie and must forward it as Authorization Bearer header to backend. Without this, backend returns 401 on /auth/me and other authenticated endpoints.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "auth",
+    "proxy",
+    "authentication",
+    "cors",
+    "session"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:52:50Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92017",
+  "repo": "auth3.1",
+  "event_type": "error",
+  "context": "When proxy handler was blocking authenticated requests with 401",
+  "command": "",
+  "lesson": "The proxy's buildHeaders function was ignoring Authorization header (in IGNORED_HEADERS set). Fix: added code after header filtering to extract token from req.cookies.token and explicitly set headers['Authorization'] = 'Bearer <token>' before forwarding to backend.",
+  "success_rate": "1/1",
+  "confidence": "10",
+  "tags": [
+    "bug",
+    "proxy",
+    "authentication",
+    "headers",
+    "401"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:01Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92589",
+  "repo": "auth3.1",
+  "event_type": "pattern",
+  "context": "When diagnosing CORS or 401 errors from Next.js API proxy to backend",
+  "command": "",
+  "lesson": "User initially thought issue was CORS in backend. Reality: ixcoach-api CORS config (origin: true, credentials: true) was fine. The Next.js proxy at /api/proxy/[...path].ts strips sensitive headers including Authorization. Must explicitly re-add session token from cookies when forwarding authenticated requests.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "debugging",
+    "cors",
+    "proxy",
+    "next.js",
+    "authentication"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:19Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_93622",
+  "repo": "auth3.1",
+  "event_type": "pattern",
+  "context": "When working with Next.js API proxy allowlist in auth3.1",
+  "command": "",
+  "lesson": "The proxy uses proxyAllowlist.ts to whitelist specific routes and methods. Routes like 'auth/me' require session cookies (not in SESSION_OPTIONAL_PATHS). Proxy handler checks for token cookie at req.cookies?.token and validates session before forwarding. Rate limiting is applied per session or IP.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "proxy",
+    "security",
+    "allowlist",
+    "rate-limiting",
+    "session"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:41Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_95167",
+  "repo": "auth3.1",
+  "event_type": "success",
+  "context": "Completing proxy authentication fix for Coherence integration",
+  "command": "",
+  "lesson": "Modified /src/pages/api/proxy/[...path].ts buildHeaders function to forward session token. Added lines 189-193 to extract token from cookies and set Authorization Bearer header. This allows auth3.1 frontend to authenticate with ixcoach-api backend when accessing Coherence UI. User must restart auth3.1 dev server for changes to take effect.",
+  "success_rate": "1/1",
+  "confidence": "10",
+  "tags": [
+    "completed",
+    "proxy",
+    "authentication",
+    "coherence",
+    "integration"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:22:59Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_33855",
+  "repo": "auth3.1",
+  "event_type": "intent",
+  "context": "When SEO metadata needs updating for conversion optimization",
+  "command": "",
+  "lesson": "SEO meta tags in /src/pages/_document.tsx (lines 41-65) contain generic placeholder content. Marketing copy needs replacement with conversion-optimized messaging. Current placeholders: og:title='Level Up Your Income And Impact', og:description='Experience the future of self-actualization'. og:image points to /preview.png which must exist. Last edited: 2025-10-31.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "seo",
+    "maintenance",
+    "marketing",
+    "conversion",
+    "funnel-top"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:09Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34251",
+  "repo": "auth3.1",
+  "event_type": "intent",
+  "context": "When updating payment enforcement configuration",
+  "command": "",
+  "lesson": "Payment flow config at /src/utils/payment-flow/paymentFlowConfig.ts controls enforcement. ENFORCE_PAYMENT_FOR_FREE_USERS=false (line 51) means free users can access features without payment. Change to true to require payment. Impacts conversion funnel KPI. FREE_TRIAL_BETA_ENABLED=false (line 26) disables legacy trial paths. Last edited: 2025-10-31.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "payment",
+    "maintenance",
+    "business-rules",
+    "conversion",
+    "funnel-middle"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:20Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34611",
+  "repo": "auth3.1",
+  "event_type": "intent",
+  "context": "When optimizing social media preview images for sharing",
+  "command": "",
+  "lesson": "Social sharing preview image configured as og:image='/preview.png' (line 55) and twitter:image='/preview.png' (line 65) in _document.tsx. This file must exist in /public/preview.png directory. Recommended size: 1200x630px for optimal display on Facebook/Twitter. Impacts social traffic KPI. Last edited: 2025-10-31.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "seo",
+    "social-media",
+    "assets",
+    "maintenance",
+    "funnel-top"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:30Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34854",
+  "repo": "auth3.1",
+  "event_type": "pattern",
+  "context": "When debugging redirects not working as expected in auth flow",
+  "command": "",
+  "lesson": "Three redirect control flags in /src/utils/payment-flow/paymentFlowConfig.ts: DEBUG_MODE (line 63), ENABLE_AUTH_FLOW_TESTS (line 74), and DEBUG_REDIRECT (line 79). ENABLE_AUTH_FLOW_TESTS completely stops redirects for testing. DEBUG_MODE delays redirects by 10s dev/1s prod. DEBUG_REDIRECT enables console logging. Check these first when diagnosing redirect issues.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "debugging",
+    "redirects",
+    "authentication",
+    "configuration"
+  ]
+}

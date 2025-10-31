@@ -1,0 +1,152 @@
+{
+  "timestamp": "2025-10-31T06:54:07Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_95964",
+  "repo": "agent-swarm-mcp",
+  "event_type": "intent",
+  "context": "When agents are told to 'save memories' or 'save lessons'",
+  "command": "",
+  "lesson": "Agents must run log_memory.sh script, NOT create .md files. Added critical warnings in AGENTS.md and created symlinks (save_memories, save_lessons, add_to_swarm_knowledge) all pointing to log_memory.sh so any command works.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "agent-behavior",
+    "memory-capture",
+    "critical",
+    "documentation"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:07Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96032",
+  "repo": "agent-swarm-mcp",
+  "event_type": "intent",
+  "context": "When MCP server needs to be initialized for agent tooling",
+  "command": "",
+  "lesson": "Agents should check if MCP server is running with pgrep before starting it. Added initialization instructions in AGENTS.md: check pgrep -f mcp-server/index.js, then cd to mcp-server and npm start if not running.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "mcp",
+    "initialization",
+    "tooling",
+    "setup"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:07Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96103",
+  "repo": "agent-swarm-mcp",
+  "event_type": "pattern",
+  "context": "When agents should query institutional memories",
+  "command": "",
+  "lesson": "Agents MUST query memories at critical boundaries: starting tasks, context switching, planning, testing, and after errors. Added explicit WHEN TO CHECK MEMORIES section in AGENTS.md with jq query examples and confidence score guidance.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "memory-query",
+    "workflow",
+    "best-practices",
+    "agent-behavior"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:07Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96172",
+  "repo": "agent-swarm-mcp",
+  "event_type": "pattern",
+  "context": "When memories exceed 800 characters",
+  "command": "",
+  "lesson": "Added safeguards to log_memory.sh that warn and request confirmation if lesson is >800 chars. Memories should be atomic (3-5 sentences). If work is large, break into multiple focused memories rather than one giant entry.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "memory-size",
+    "atomic",
+    "safeguards",
+    "quality"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96244",
+  "repo": "agent-swarm-mcp",
+  "event_type": "intent",
+  "context": "When logging memories based on historical git commits",
+  "command": "",
+  "lesson": "Added --timestamp parameter to log_memory.sh so agents can specify commit date as memory timestamp instead of current time. This preserves timeline integrity when retroactively capturing learnings from git history.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "timestamp",
+    "git",
+    "historical",
+    "accuracy"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96320",
+  "repo": "agent-swarm-mcp",
+  "event_type": "pattern",
+  "context": "When agents work in ix directory but need agent memory scripts",
+  "command": "",
+  "lesson": "Copied full AGENTS.md to ix directory root and added AGENT_SWARM_PATH environment variable setup to AGENT_INSTRUCTION.txt. Agents starting in ix can export AGENT_SWARM_PATH then access all memory scripts and docs.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "cross-repo",
+    "environment",
+    "setup",
+    "accessibility"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96390",
+  "repo": "agent-swarm-mcp",
+  "event_type": "success",
+  "context": "When documenting MCP client configuration status",
+  "command": "",
+  "lesson": "Created MCP_CONFIG_STATUS.md documenting Claude Desktop and Codex terminal MCP setup. Confirmed VSCode, Warp, iTerm, ChatGPT do not natively support MCP. Included test commands and troubleshooting for both configured clients.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "mcp",
+    "configuration",
+    "documentation",
+    "tooling"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96460",
+  "repo": "agent-swarm-mcp",
+  "event_type": "pattern",
+  "context": "When clarifying context vs lesson fields in memory logging",
+  "command": "",
+  "lesson": "Updated WRITE.md to clarify: --context describes the trigger condition (when X happens), --lesson is the detailed UX-translated explanation (what and why). Context is the situation, lesson is the knowledge. Updated all examples accordingly.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "documentation",
+    "clarity",
+    "memory-structure",
+    "ux-first"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96530",
+  "repo": "agent-swarm-mcp",
+  "event_type": "success",
+  "context": "When wrapping up agent memory system session work",
+  "command": "",
+  "lesson": "Completed: critical agent behavior fixes preventing .md file creation, MCP initialization instructions, query timing guidance, memory size safeguards, timestamp preservation, cross-repo access, and documentation clarifications. All changes committed and pushed to internal repo.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "progress",
+    "checkpoint",
+    "session-complete"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "timestamp": "2025-10-31T06:52:51Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92211",
+  "repo": "ixcoach-react-native",
+  "event_type": "intent",
+  "context": "When aligning on mobile dev workflow for IX Coach",
+  "command": "",
+  "lesson": "Admin needs the IX Coach mobile app to support live hot reload editing from Metro so they can verify UI tweaks instantly on a physical phone. The UX goal is that scanning the development QR opens a dev-enabled build with Fast Refresh toggled on and the developer menu available. This matters because the current production build intercepts the QR and blocks real-time validation.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "ux",
+    "dev-client",
+    "hot-reload",
+    "mobile"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:52:57Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92377",
+  "repo": "ixcoach-react-native",
+  "event_type": "success",
+  "context": "When adjusting theme tokens for the hot reload validation",
+  "command": "",
+  "lesson": "I updated the navigation background color token to #000000 in both ixcoach-react-native/src/constants/colors-light.json and ixcoach-react-native/src/constants/colors-dark.json so the header renders black across themes. This keeps every screen that pulls theme['navigation-background'] visually consistent during live testing. The tweak makes it obvious when Fast Refresh pushes a change because the header flips to black the moment the file is saved.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "theme",
+    "colors",
+    "fast-refresh",
+    "ux"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:03Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92908",
+  "repo": "ixcoach-react-native",
+  "event_type": "pattern",
+  "context": "When working with IX Coach theme configuration",
+  "command": "",
+  "lesson": "Theme tokens live in ixcoach-react-native/src/constants/colors-light.json and colors-dark.json, and UI Kitten consumes them so both palettes must be updated together to keep shared components aligned. Components pull values like 'navigation-background' without checking light or dark mode, so a mismatch shows instantly in the UI. Editing these JSON files is an efficient way to trigger Fast Refresh feedback because Metro notices the file save immediately.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "theme",
+    "ui-kitten",
+    "pattern",
+    "ux"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_93136",
+  "repo": "ixcoach-react-native",
+  "event_type": "pattern",
+  "context": "When diagnosing why Metro QR opened the production IX Coach app",
+  "command": "",
+  "lesson": "Expo Go cannot load this project because native modules like @react-native-firebase and react-native-voice require a custom dev client, so iOS/Android redirect the exp:// link into the installed production bundle. Building and installing an Expo development client that registers the exp+development-client:// scheme fixes the QR workflow and exposes the developer menu. Once the dev client is in place, scanning Metro's QR reliably connects to the live bundle for Fast Refresh.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "expo",
+    "dev-client",
+    "hot-reload",
+    "ux"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:17Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_93473",
+  "repo": "ixcoach-react-native",
+  "event_type": "success",
+  "context": "When wrapping up the hot reload support session",
+  "command": "",
+  "lesson": "Completed the UX work of making the navigation background black, logging the theme workflow, and documenting the dev-client process needed for real-time testing. The admin still needs to install a platform-specific Expo development build and run  so the QR targets the editable bundle. Next step is to assist with platform install commands or validation once the dev client is on the device.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "progress",
+    "hot-reload",
+    "ux"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:14Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96875",
+  "repo": "ixcoach-react-native",
+  "event_type": "intent",
+  "context": "When admin asked to fix the Expo router boot error",
+  "command": "",
+  "lesson": "Admin confirmed the goal was to unblock the Expo Router shell that crashed on launch because react-native-safe-area-context was missing. Restoring that UX ensures the navigation root can render its layout wrappers before other teams add new screens. Keeping the boot flow stable protects ongoing coach experience testing.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "ux",
+    "dependency",
+    "expo",
+    "session-work"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:20Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97042",
+  "repo": "ixcoach-react-native",
+  "event_type": "success",
+  "context": "While resolving the missing safe-area dependency",
+  "command": "",
+  "lesson": "Installed react-native-safe-area-context through expo install so ExpoRoot.js can require its provider without crashing. The command updated package.json and yarn.lock to pin version 4.12.0 compatible with Expo SDK 52. The patch-package postinstall ran cleanly and did not introduce extra diffs, confirming the dependency fix is self-contained.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "dependency",
+    "expo-router",
+    "fix"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:28Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97250",
+  "repo": "ixcoach-react-native",
+  "event_type": "pattern",
+  "context": "When managing dependencies in this repo",
+  "command": "",
+  "lesson": "This app leans on Yarn workflows even though a package-lock.json is present, so future installs should stick with expo install or yarn to prevent lockfile drift. Adding packages automatically replays patch-package for @ui-kitten/components, which is a signal that the patch must keep applying cleanly after dependency updates. Expo SDK 52 expects the safe area library in the 4.x line, making expo install the safest path to keep native compatibility in sync.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "dependency-management",
+    "yarn",
+    "patch-package",
+    "expo"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:42Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97650",
+  "repo": "ixcoach-react-native",
+  "event_type": "learning",
+  "context": "After reproducing the Expo Router crash",
+  "command": "",
+  "lesson": "The 'Unable to resolve module react-native-safe-area-context' message pointed to a missing dependency rather than a bad import path, so the fix lives in package management. Installing the library alone cleared the server error, showing that no additional provider wiring or Metro cache reset was needed. Similar Expo Router crashes should prompt a dependency audit before chasing code regressions.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "diagnostics",
+    "expo-router",
+    "bundler"
+  ]
+}

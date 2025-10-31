@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-10-31T06:53:32Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_94213",
+  "repo": "multi-repo-session",
+  "event_type": "pattern",
+  "context": "When user reports issue that seems to be in one repo but is actually in another",
+  "command": "",
+  "lesson": "User initially referenced 'self repo' and 'ixcoach-landing', but actual issue was in auth3.1 repo. Console logs showing localhost:5982 were key indicator. Auth3.1 runs on 5982, ixcoach-landing on 3005, self/Coherence on 5678. Always verify which repo user is actually working in based on port numbers in error logs.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "debugging",
+    "multi-repo",
+    "ports",
+    "communication"
+  ]
+}

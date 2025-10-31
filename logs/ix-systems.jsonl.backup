@@ -1,0 +1,109 @@
+{
+  "timestamp": "2025-10-31T06:32:04Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_59055",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When observing IX Coach full-stack architecture from gptcoach2 and ixcoach-api g3 branches",
+  "command": "",
+  "lesson": "IX Coach demonstrates sophisticated full-stack coordination where frontend and backend mirror each other's patterns: (1) Both repos have internal docs at localhost:4173 with auto-enrichment from commits, (2) GPT-5 reasoning flows through coordinated pipeline - API emits reasoning deltas via SSE, frontend consumes them for admin-only visibility while keeping customer UX clean, (3) Model archetypes defined in both frontend (dashboard selector) and backend (config manifest) must stay aligned to prevent UX/API mismatch, (4) Session diagnostics span both layers - API emits severity metadata, frontend filters/visualizes it without network calls, (5) Both use Gen3 design patterns - backend for API structure, frontend for UI components, (6) Testing infrastructure symmetric - advisory Jest for frontend, agent testing tools for backend, (7) KPI optimization coordinated - cache diagnostics in API enable cost optimization, SEO structured data in frontend drives acquisition, admin tools in both accelerate velocity, (8) Compliance readiness - SOC 2 docs in API support enterprise sales that SEO funnel generates. This tight coupling between repos indicates monorepo-style coordination despite separate repositories, suggesting shared product vision and integrated deployment strategy.",
+  "success_rate": "20/20",
+  "confidence": "9",
+  "tags": [
+    "meta-pattern",
+    "full-stack",
+    "frontend-backend-coordination",
+    "gpt-5",
+    "gen3",
+    "monorepo-style",
+    "kpi",
+    "compliance",
+    "architecture"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:48:35Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_83705",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When coordinating GPT-5 reasoning across repos",
+  "command": "",
+  "lesson": "Model archetypes defined in both frontend (dashboard selector) and backend (config manifest) must stay aligned. API emits reasoning via SSE, frontend consumes for admin-only visibility. Customer UX never exposes raw reasoning. Tight coupling prevents UX/API mismatch.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "pattern",
+    "gpt-5",
+    "reasoning",
+    "frontend-backend-coordination"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:48:44Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_83926",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When mirroring dev tooling across repos",
+  "command": "",
+  "lesson": "Both frontend and backend host internal docs at localhost:4173 with auto-enrichment from commits. Command bar shortcuts access both changelogs. Symmetric testing infrastructure: advisory Jest frontend, agent tools backend. Creates unified developer experience.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "pattern",
+    "dev-tooling",
+    "internal-docs",
+    "parity"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:48:55Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84187",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When IX Coach optimizes for multiple KPIs",
+  "command": "",
+  "lesson": "KPIs tracked: conversion rate (SEO landing pages), coaching quality (GPT-5 reasoning), operational velocity (advisory tests, internal docs), SEO visibility (structured data), analytics accuracy (bot gating), enterprise readiness (SOC 2). Cache diagnostics optimize costs. SEO funnel drives acquisition. Compliance supports sales.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "pattern",
+    "kpi",
+    "strategy",
+    "optimization"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:49:06Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84468",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When IX Coach executes three strategic pillars",
+  "command": "",
+  "lesson": "Three concurrent pillars: (1) GPT-5 Integration - reasoning visibility, model presets, streaming hardening, thinking indicators, customer UX protection; (2) SEO Optimization - keyword landing generation, structured data, bot detection, marketing APIs, FAQ content; (3) Admin Tooling - internal docs, session diagnostics, advisory CI/CD, command bar shortcuts.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "pattern",
+    "strategy",
+    "pillars",
+    "gpt-5",
+    "seo",
+    "admin-tooling"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:49:15Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84698",
+  "repo": "ix-systems",
+  "event_type": "pattern",
+  "context": "When new features roll out to customers",
+  "command": "",
+  "lesson": "Pattern: admin preview/triage tools built before customer rollout. SEO pages get admin command center. Reasoning gets admin-only toggle. Session diagnostics provide visibility. Internal docs auto-enrich. Ensures quality before customer exposure.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "pattern",
+    "rollout",
+    "admin-first",
+    "quality"
+  ]
+}

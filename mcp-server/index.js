@@ -5,7 +5,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { readFile } from "fs/promises";
+import { readFile, writeFile, appendFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { existsSync } from "fs";
@@ -139,6 +139,127 @@ function formatMemories(memories) {
   return output;
 }
 
+/**
+ * Update an existing memory by replacing matching entries
+ */
+async function updateMemory({ repo, searchTags = [], searchText = null, updates }) {
+  const logFile = join(LOGS_DIR, `${repo}.jsonl`);
+  
+  if (!existsSync(logFile)) {
+    return { success: false, error: "Log file not found" };
+  }
+
+  const content = await readFile(logFile, "utf-8");
+  const lines = content.split("\n").filter((line) => line.trim());
+  
+  let updatedCount = 0;
+  const updatedLines = lines.map((line) => {
+    try {
+      const memory = JSON.parse(line);
+      
+      // Check if this memory matches search criteria
+      let matches = false;
+      
+      if (searchTags.length > 0) {
+        matches = searchTags.some(tag => (memory.tags || []).includes(tag));
+      }
+      
+      if (searchText) {
+        const searchableText = [
+          memory.context,
+          memory.lesson,
+          memory.command,
+        ].filter(Boolean).join(" ").toLowerCase();
+        matches = matches || searchableText.includes(searchText.toLowerCase());
+      }
+      
+      if (matches) {
+        updatedCount++;
+        return JSON.stringify({ ...memory, ...updates, updated_at: new Date().toISOString() });
+      }
+      
+      return line;
+    } catch (e) {
+      return line;
+    }
+  });
+
+  await writeFile(logFile, updatedLines.join("\n") + "\n", "utf-8");
+  
+  return { success: true, updatedCount };
+}
+
+/**
+ * Remove memories matching criteria
+ */
+async function removeMemory({ repo, searchTags = [], searchText = null }) {
+  const logFile = join(LOGS_DIR, `${repo}.jsonl`);
+  
+  if (!existsSync(logFile)) {
+    return { success: false, error: "Log file not found" };
+  }
+
+  const content = await readFile(logFile, "utf-8");
+  const lines = content.split("\n").filter((line) => line.trim());
+  
+  let removedCount = 0;
+  const filteredLines = lines.filter((line) => {
+    try {
+      const memory = JSON.parse(line);
+      
+      let matches = false;
+      
+      if (searchTags.length > 0) {
+        matches = searchTags.some(tag => (memory.tags || []).includes(tag));
+      }
+      
+      if (searchText) {
+        const searchableText = [
+          memory.context,
+          memory.lesson,
+          memory.command,
+        ].filter(Boolean).join(" ").toLowerCase();
+        matches = matches || searchableText.includes(searchText.toLowerCase());
+      }
+      
+      if (matches) {
+        removedCount++;
+        return false; // Exclude this line
+      }
+      
+      return true; // Keep this line
+    } catch (e) {
+      return true; // Keep malformed lines
+    }
+  });
+
+  await writeFile(logFile, filteredLines.join("\n") + "\n", "utf-8");
+  
+  return { success: true, removedCount };
+}
+
+/**
+ * Add a new memory entry
+ */
+async function addMemory({ repo, context, lesson, tags = [], metadata = {}, eventType = "pattern", confidence = 10 }) {
+  const logFile = join(LOGS_DIR, `${repo}.jsonl`);
+  
+  const memory = {
+    timestamp: new Date().toISOString(),
+    event_type: eventType,
+    repo,
+    context,
+    lesson,
+    confidence,
+    tags,
+    metadata
+  };
+  
+  await appendFile(logFile, JSON.stringify(memory) + "\n", "utf-8");
+  
+  return { success: true, memory };
+}
+
 // Create MCP server
 const server = new Server(
   {
@@ -185,14 +306,115 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ["query"],
         },
       },
+      {
+        name: "add_memory",
+        description:
+          "Add a new memory entry to the agent knowledge base. Use this to document patterns, solutions, or important context.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repo: {
+              type: "string",
+              description: "Repository name (gptcoach2, ixcoach-api, etc.)",
+            },
+            context: {
+              type: "string",
+              description: "When to use this memory (context/trigger)",
+            },
+            lesson: {
+              type: "string",
+              description: "What to do (the actual lesson/solution)",
+            },
+            tags: {
+              type: "array",
+              items: { type: "string" },
+              description: "Tags for categorization",
+              default: [],
+            },
+            event_type: {
+              type: "string",
+              enum: ["error", "success", "pattern", "intent"],
+              description: "Type of memory entry",
+              default: "pattern",
+            },
+            confidence: {
+              type: "number",
+              description: "Confidence level (1-10)",
+              default: 10,
+            },
+            metadata: {
+              type: "object",
+              description: "Additional structured data",
+              default: {},
+            },
+          },
+          required: ["repo", "context", "lesson"],
+        },
+      },
+      {
+        name: "update_memory",
+        description:
+          "Update existing memory entries matching search criteria. Use to correct or deprecate outdated information.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repo: {
+              type: "string",
+              description: "Repository name",
+            },
+            search_tags: {
+              type: "array",
+              items: { type: "string" },
+              description: "Find memories with these tags",
+              default: [],
+            },
+            search_text: {
+              type: "string",
+              description: "Find memories containing this text in context/lesson",
+            },
+            updates: {
+              type: "object",
+              description: "Fields to update (e.g., {deprecated: true, lesson: 'New lesson'})",
+            },
+          },
+          required: ["repo", "updates"],
+        },
+      },
+      {
+        name: "remove_memory",
+        description:
+          "Remove memory entries matching search criteria. Use to delete obsolete or incorrect information.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repo: {
+              type: "string",
+              description: "Repository name",
+            },
+            search_tags: {
+              type: "array",
+              items: { type: "string" },
+              description: "Remove memories with these tags",
+              default: [],
+            },
+            search_text: {
+              type: "string",
+              description: "Remove memories containing this text",
+            },
+          },
+          required: ["repo"],
+        },
+      },
     ],
   };
 });
 
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === "retrieve_memories") {
-    const { query, repo, limit = 5, event_type } = request.params.arguments;
+  const { name, arguments: args } = request.params;
+
+  if (name === "retrieve_memories") {
+    const { query, repo, limit = 5, event_type } = args;
 
     const memories = await retrieveMemories({
       query,
@@ -211,7 +433,73 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     };
   }
 
-  throw new Error(`Unknown tool: ${request.params.name}`);
+  if (name === "add_memory") {
+    const { repo, context, lesson, tags, event_type, confidence, metadata } = args;
+    
+    const result = await addMemory({
+      repo,
+      context,
+      lesson,
+      tags,
+      eventType: event_type,
+      confidence,
+      metadata,
+    });
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: `✅ Memory added to ${repo}\n\nContext: ${context}\nLesson: ${lesson}`,
+        },
+      ],
+    };
+  }
+
+  if (name === "update_memory") {
+    const { repo, search_tags, search_text, updates } = args;
+    
+    const result = await updateMemory({
+      repo,
+      searchTags: search_tags,
+      searchText: search_text,
+      updates,
+    });
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: result.success
+            ? `✅ Updated ${result.updatedCount} memor${result.updatedCount === 1 ? 'y' : 'ies'} in ${repo}`
+            : `❌ Failed: ${result.error}`,
+        },
+      ],
+    };
+  }
+
+  if (name === "remove_memory") {
+    const { repo, search_tags, search_text } = args;
+    
+    const result = await removeMemory({
+      repo,
+      searchTags: search_tags,
+      searchText: search_text,
+    });
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: result.success
+            ? `✅ Removed ${result.removedCount} memor${result.removedCount === 1 ? 'y' : 'ies'} from ${repo}`
+            : `❌ Failed: ${result.error}`,
+        },
+      ],
+    };
+  }
+
+  throw new Error(`Unknown tool: ${name}`);
 });
 
 // Start server

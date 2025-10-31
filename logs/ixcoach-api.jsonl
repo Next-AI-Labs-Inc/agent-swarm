@@ -1,0 +1,442 @@
+{"timestamp":"2025-10-31T06:36:19Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_64403","repo":"ixcoach-api","event_type":"intent","context":"When marketing agents need IX Coach briefing data","command":"","lesson":"GET /ai/briefing endpoint serves structured JSON from briefing.json with recency metadata and cache headers. GET /press endpoint serves newsArticles.json. Both documented in Swagger. Enables partner agents to consume briefings programmatically.","success_rate":"","confidence":"10","tags":["api","marketing","briefing","endpoints","swagger","commit:d49a1c5c"]}
+{"timestamp":"2025-10-29T18:27:19Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_76007","repo":"ixcoach-api","event_type":"intent","context":"When marketing agents query IX Coach briefing","command":"","lesson":"GET /ai/briefing serves structured JSON from briefing.json with metadata and cache headers. GET /press serves newsArticles.json. Both documented in Swagger for partner agent consumption.","success_rate":"","confidence":"10","tags":["api","marketing","briefing","endpoints","swagger","commit:d49a1c5c"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_76637","repo":"ixcoach-api","event_type":"pattern","context":"/docs/DOCS_MAP.md defines mandatory documentation organization structure","command":"","lesson":"Documentation Organization System: All docs must follow strict directory rules - changelogs in /docs/changelogs/, issues in /docs/issues/, domain docs in /docs/documentation/{domain}/. Decision flowchart determines placement: completed changes→changelog, bugs→issues, IXCoach-specific→/ixc/, tests→/tests/, initiatives→/initiatives/. Never create new top-level folders without approval. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/DOCS_MAP.md","success_rate":"","confidence":"10","tags":["documentation","structure","pattern","docs-map","file-organization"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_76939","repo":"ixcoach-api","event_type":"pattern","context":"/docs/initiatives/initiatives-map.md tracks strategic initiatives with priority and status","command":"","lesson":"Strategic Initiatives Dashboard (2025-10-28): 8 active WIP initiatives including Voice Agents Integration (prio 12), Modern UI Redesign (11), Logger Trace System (10), Email Testing (9), Funnel Stage Refactoring (9), Stripe Churn Reports (9), CLI Tools Refactoring (9), Logger-PostHog Integration (9). Status workflow: IDEA→NEXT→PLAN→CODE→WIP→TEST→REVIEW→SHIP→LIVE. All initiatives backend-prioritized for fastest implementation. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/initiatives/initiatives-map.md","success_rate":"","confidence":"10","tags":["initiatives","strategic-planning","roadmap","priorities","status-tracking"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_77297","repo":"ixcoach-api","event_type":"pattern","context":"/docs/issues/INDEX.md catalogs current and resolved issues","command":"","lesson":"Issues Catalog Structure: Webhook processing (missing user crashes), subscription management (paid users losing premium access), authentication (Firebase provider, email mismatch), data sync (MongoDB-Firebase sync, subscription logging mismatch). Resolved: Apple email blocking, Stripe webhook race conditions. Active work: user engagement menu UX, code quality violations. Organized by category: API tests, database issues, webhook issues. Naming convention: YYYY-MM-DD-descriptive-name.md. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/issues/INDEX.md","success_rate":"","confidence":"10","tags":["issues","bugs","catalog","naming-convention","issue-tracking"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_78638","repo":"ixcoach-api","event_type":"pattern","context":"Payment User Journey: Complete flow from registration → Stripe → webhook → access","command":"","lesson":"Payment Flow Architecture: 4-phase user journey - Phase 1: Registration at go.ixcoach.com creates MongoDB user with currentPlan:1, creates Stripe checkout with client_reference_id. Phase 2: Stripe processes payment, triggers webhooks (checkout.session.completed, customer.subscription.created, invoice.payment_succeeded). Phase 3: Webhooks update user to currentPlan:20 for CC trials. Phase 4: Auth system verifies plan access. Critical failure points: missing client_reference_id, customerEmail undefined, silent save failures. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/documentation/payment_flow/UserJourneyPhases.md","success_rate":"","confidence":"10","tags":["payment-flow","user-journey","stripe","webhooks","architecture","critical-path"]}
+{"timestamp":"2025-10-28T16:16:22Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_78985","repo":"ixcoach-api","event_type":"pattern","context":"Coach Model Presets: GPT-5 model archetypes with routing strategy","command":"","lesson":"Model Archetype System: 6 presets - original (gpt-4o legacy), auto (gpt-5 with fallbacks), instant (gpt-5-mini ≤800 tokens, tools disabled), thinking_mini (1.6k cap), thinking (gpt-5 default ≈3.5k), pro (gpt-5 8k ceiling, full orchestration). Must sync: backend (utils/modelStrategy.js, gen3/openai/gpt5Config.js, utils/allApiModels.js), frontend (modelArchetypes.js, resolveModeRequest.js, DashboardModelSelector.jsx). Verify with session-diagnostics endpoint. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/system/coach-model-presets.md","success_rate":"","confidence":"10","tags":["gpt-5","model-presets","archetypes","routing","ai-models","reasoning"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_79476","repo":"ixcoach-api","event_type":"pattern","context":"Subscription System Overhaul: 4-phase plan to fix payment access issues","command":"","lesson":"Subscription Fix Strategy: Phase 1 (24h): Emergency access middleware with monitoring. Phase 2 (48h): Database audit to fix incorrect plan assignments. Phase 3 (3-5d): Webhook improvements with validation, fallback user lookup, resilience. Phase 4 (7+d): Modular rebuild with single-responsibility functions, comprehensive tests. Critical issues: access denial for paying users, CC trial users stuck on free plan, missing webhook fields, poor audit trails, mixed responsibilities in large files. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/subscription/OVERVIEW.md","success_rate":"","confidence":"10","tags":["subscription","stripe","access-control","strategic-plan","phased-approach","critical-issue"]}
+{"timestamp":"2025-10-28T16:15:29Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_79822","repo":"ixcoach-api","event_type":"pattern","context":"Account Management CLI: Layered architecture for safe Stripe operations testing","command":"","lesson":"CLI Architecture Pattern: 7-layer system for single-point-of-truth operations. Layers: event-handlers (routing), validators (fail-early), entity-resolvers (multi-strategy lookup), state-determiners (pure decision logic), persistence (atomic DB ops), side-effects (post-save notifications/analytics), migrations (gradual adoption). Screen ID system (4-digit unique IDs). TDD-first approach: get real mock → failing test → build helper → test on real account → human approval → deploy. Critical for testing Stripe functions safely before system-wide deployment. File: /Users/jedi/react_projects/ix/ixcoach-api/account-management/ARCHITECTURE_AND_PURPOSE.md","success_rate":"","confidence":"10","tags":["architecture","cli","testing","stripe","layered-design","tdd","single-source-of-truth"]}
+{"timestamp":"2025-10-29T18:46:11Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_81566","repo":"ixcoach-api","event_type":"success","context":"When GPT-5 prompt caching needs monitoring","command":"","lesson":"API logs cache diagnostics warnings to track cached token usage. Refined coverage provides visibility into prompt cache hits/misses. Helps optimize costs by surfacing opportunities to restructure prompts for better cache rates.","success_rate":"","confidence":"10","tags":["gpt-5","caching","cost-optimization","diagnostics","commit:026d964b"]}
+{"timestamp":"2025-05-24T00:00:00Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_81624","repo":"ixcoach-api","event_type":"success","context":"GPT-5 Routing Updates deployed 2025-05-24","command":"","lesson":"GPT-5 Routing (2025-05-24): Added utils/modelStrategy.js. Normalized Responses API. Dropped temperature/top_p. Token ceilings: Instant 800, Mini 1600, Thinking 3500, Pro 8000. File: docs/changelogs/2025-05-24-gpt5-routing-updates.md","success_rate":"","confidence":"10","tags":["gpt-5","deployment","routing","changelog"]}
+{"timestamp":"2025-05-24T00:00:00Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_81892","repo":"ixcoach-api","event_type":"success","context":"Session Diagnostics Admin Endpoint deployed 2025-05-24","command":"","lesson":"Session Diagnostics Endpoint (2025-05-24): Added GET /admin/session-diagnostics for grouped coaching session telemetry. Wraps AdminConversationLog records into per-session timelines with status metadata. Registered under admin router for web console access without manual proxying. Response includes groups[] with statuses, logs, timestamps (newest-first). File: docs/changelogs/2025-05-24-session-diagnostics-endpoint.md","success_rate":"","confidence":"10","tags":["admin","diagnostics","session-telemetry","changelog","endpoint"]}
+{"timestamp":"2025-10-29T16:31:15Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_82114","repo":"ixcoach-api","event_type":"success","context":"When enterprise customers request security documentation","command":"","lesson":"Added SOC 2 control matrix and evidence checklist documenting security controls, data handling, access management, audit evidence. Maps to Trust Service Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy). Accelerates enterprise sales.","success_rate":"","confidence":"10","tags":["soc-2","compliance","security","enterprise","audit","commit:822d0a2c"]}
+{"timestamp":"2025-10-28T16:26:50Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_82358","repo":"ixcoach-api","event_type":"success","context":"When GPT-5 reasoning configs need frontend alignment","command":"","lesson":"API aligns GPT-5 reasoning configs with frontend manifest. Backend reasoning effort settings match UI mode metadata. Prevents mismatch where UI promises reasoning but API doesn't deliver or vice versa.","success_rate":"","confidence":"10","tags":["gpt-5","reasoning-config","frontend-backend-alignment","commit:be1a6283"]}
+{"timestamp":"2025-10-27T20:27:55Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_82684","repo":"ixcoach-api","event_type":"success","context":"When GPT-5 reasoning needs to stream to admin diagnostics","command":"","lesson":"Responses client emits structured reasoning chunks that SSE layer wraps into separate deltas. Keeps reasoning separate from user transcript so customers never see raw reasoning. Admin can audit via session diagnostics while customer UX stays clean.","success_rate":"","confidence":"10","tags":["gpt-5","reasoning","streaming","sse","admin-separation","commit:496b056b"]}
+{"timestamp":"2025-10-27T19:33:33Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_82965","repo":"ixcoach-api","event_type":"success","context":"When API adds testing tools for agents","command":"","lesson":"Added new testing tools for agents. Hides legacy tests. Adds session logging for debugging. Updates model strategy documentation and API config docs.","success_rate":"","confidence":"10","tags":["testing","agent-tools","debugging","commit:59d5c478"]}
+{
+  "timestamp": "2025-10-13T00:00:00Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_87722",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Gen3 Admin Notifications System: Single-record notifications with funnel stage targeting",
+  "command": "",
+  "lesson": "Gen3 Notifications (2025-10-13): Complete system replacing 5,033+ individual records with single NotificationAnnouncement + NotificationReadState tracking. Features: advanced funnel stage targeting (9 stages: new, registered, abandoned-checkout, checkout-initiated, legacy-trialing, active, at-risk, churning, churned), draft→preview→publish workflow, admin-only preview mode, 99.98% storage reduction. Backend: NotificationAnnouncement/NotificationReadState models, gen3NotificationController, gen3Notifications routes. Frontend: AdminNotificationsPage at /admin2/notifications with Gen3 dark theme. API: user endpoints (GET/view/read/dismiss), admin endpoints (all/create/update/preview/publish/unpublish/delete). File: /Users/jedi/react_projects/ix/ixcoach-api/gen3/admin/adminNotificationsSystemDocs.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gen3",
+    "notifications",
+    "funnel-stages",
+    "admin",
+    "targeting",
+    "architecture",
+    "complete-system"
+  ]
+}
+{
+  "timestamp": "2025-10-28T17:35:12Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_91990",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Gen3 Agent Modes Manifest: 5 coaching archetypes with psychological intentions",
+  "command": "",
+  "lesson": "Gen3 Agent Modes: Auto (attuned coach, gpt-5 medium reasoning, adaptive), Instant (responsive coach, gpt-5 minimal reasoning <700ms, no tools), Thinking Mini (cognitive analyst, o4-mini medium reasoning, 1 tool call), Thinking (reflective coach, gpt-5 high reasoning 3-5s, 1-2 tools), Pro (master coach, o3-pro high reasoning 5-10s, ≤5 tools orchestrated). Routing auto-adapts based on token count, emotional markers, complexity. File: /Users/jedi/react_projects/ix/ixcoach-api/gen3/AGENTS.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gen3",
+    "agents",
+    "coaching-modes",
+    "psychological-design",
+    "gpt-5",
+    "o4-mini",
+    "o3-pro"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:16:22Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_92697",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Gen3 Review Email Machine Drafts: Admin interface for AI-generated email approval",
+  "command": "",
+  "lesson": "Email Review System: Admin page at gen3/admin/review_email_machine_drafts for approving AI-generated emails. Features: list/detail columns, personalization token highlighting, logic summary, inline editors, approve/reject workflow, optimistic updates. API: GET drafts (paginated), GET detail, PATCH edits, POST approve/reject. Tracks audit trail, prevents unresolved token approval. Uses ReviewEmailMachineDraftSummary/Detail schemas. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/gen3/review_email_machine_drafts.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gen3",
+    "email",
+    "admin",
+    "ai-drafts",
+    "review-workflow",
+    "personalization"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:53:10Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_93225",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "When checking CORS configuration for localhost development",
+  "command": "",
+  "lesson": "Backend API (app.js) has CORS configured with origin: true (allows all origins), credentials: true, and includes localhost:5678 (Coherence/self) and localhost:5982 (auth3.1) in allowedOrigins array from config/cors.js. This setup is correct for cross-origin requests from Next.js proxies.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "cors",
+    "configuration",
+    "localhost",
+    "authentication"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_93315",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Meta Pixel Deduplication System: Database-backed event tracking to prevent 3x duplicate conversions",
+  "command": "",
+  "lesson": "Meta Pixel Fix: Create meta_pixel_events table + centralized MetaEventService to prevent duplicate events (currently sending 3x per conversion). Service generates consistent dedupKey, checks DB before sending, records all attempts, logs to files (sent/failed/blocked/summary). Replace all direct sendEventToFacebook calls in stripeController, customer.subscription.created, trialInitialized. Benefits: complete audit trail, true deduplication across code paths, error recovery, cost reduction. File: /Users/jedi/react_projects/ix/ixcoach-api/gen3/docs/issues/github_issue_content.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gen3",
+    "meta-pixel",
+    "deduplication",
+    "tracking",
+    "issue",
+    "facebook-events"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:11Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_96744",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Meta-connection: Payment flow connects landing→API→Stripe→webhooks→access",
+  "command": "",
+  "lesson": "System Integration Map: Landing (go.ixcoach.com/register) creates user→API (authController createUser) stores MongoDB currentPlan:1→API (stripeController createCheckoutSession) passes client_reference_id to Stripe→Stripe triggers webhooks (checkout.session.completed, customer.subscription.created, invoice.payment_succeeded)→API webhook handlers update currentPlan:20 for CC trials→Auth middleware (auth.js) verifies plan→Frontend checks access. Critical dependencies: client_reference_id propagation, email field locations (customer_email vs customer_details.email), MongoDB save operations.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "meta",
+    "system-integration",
+    "payment-flow",
+    "dependencies",
+    "critical-path"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:54:24Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_97156",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Meta-connection: Gen3 systems connect admin tools→notifications→agents→email review",
+  "command": "",
+  "lesson": "Gen3 Architecture Integration: Admin at /admin2/notifications manages NotificationAnnouncement with funnel stage targeting (9 stages)→funnel stage resolver determines user segments→Gen3 agents (Auto/Instant/Thinking Mini/Thinking/Pro) adapt coaching mode based on complexity→Email machine drafts at gen3/admin/review_email_machine_drafts enable AI-generated personalized emails→Meta Pixel deduplication system tracks conversion events (StartTrial, Purchase) with DB-backed dedupKeys. All Gen3 uses dark theme, structured workflows (draft→preview→publish), and layered architecture pattern.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "meta",
+    "gen3",
+    "admin-tools",
+    "system-integration",
+    "architecture"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:58:34Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_3070",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When logging session-scoped events in coaching conversations",
+  "command": "",
+  "lesson": "Session-scoped events (with conversationId/sessionId) MUST use logAdminOnlyConversationAspect from utils/adminLogger.js. This automatically mirrors entries into both /admin2/session-diagnostics AND /admin/admin-logs. Never create new logging transports for session events.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "logging",
+    "session-diagnostics",
+    "canonical",
+    "logAdminOnlyConversationAspect",
+    "protocol"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:58:44Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_3365",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When logging non-session operational signals (Slack alerts, infrastructure warnings, feature toggles)",
+  "command": "",
+  "lesson": "Non-session operational events MUST use recordAdminLog from utils/adminLogging/canonicalAdminLogger. Route Slack/webhook messages through canonical logger adapters (SlackNotifier, logger) instead of creating new axios.post helpers. Raw payloads persist to /admin/admin-logs for admin inspection.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "logging",
+    "admin-logs",
+    "canonical",
+    "recordAdminLog",
+    "operational",
+    "slack"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:59:17Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_4272",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When admin logging is enabled in production environments",
+  "command": "",
+  "lesson": "logAdminOnlyConversationAspect only logs when NODE_ENV=development OR ENABLE_ADMIN_LOGGING env var is set. Saves to MongoDB AdminConversationLog collection for persistence across restarts. Non-blocking async saves catch errors without breaking main flow. Automatic cleanup via runLogCleanup with 30-day retention.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "logging",
+    "production",
+    "environment",
+    "mongodb",
+    "persistence",
+    "cleanup"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:59:28Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_4522",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When passing severity metadata through log admin Only ConversationAspect",
+  "command": "",
+  "lesson": "logAdminOnlyConversationAspect accepts _severity and _summary in data object. Use data._severity for severity level (info/warning/error), data._summary for human-readable summary. These get extracted and stored as top-level fields, deleted from payload. Enables frontend severity filtering and tinted preview panels.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "logging",
+    "severity",
+    "metadata",
+    "data-structure",
+    "filtering"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:16:43Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_26012",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: After creating new API endpoint → Update Swagger",
+  "command": "",
+  "lesson": "When creating any new API endpoint: 1) Add route in /routes, 2) Add controller handler, 3) Document in Swagger using @swagger comments in controller, 4) Add to swagger-components/admin-schemas.js for request/response types, 5) Test endpoint appears at /api-docs, 6) Verify request/response schemas match. Swagger disabled in production by default (requires ENABLE_SWAGGER=true). Admin routes require admin auth. All responses use standardized format: {success: boolean, data?, error?}.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "api",
+    "swagger",
+    "documentation",
+    "checklist"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:16:54Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_26278",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Major innovation/change → Draft press release + Create user notification",
+  "command": "",
+  "lesson": "When completing major feature or change: 1) Draft press release describing user benefit (not technical details), 2) Create notification in Gen3 admin at /admin2/notifications, 3) Set appropriate funnel stage targeting (9 stages: new/registered/abandoned-checkout/checkout-initiated/legacy-trialing/active/at-risk/churning/churned), 4) Use draft→preview→publish workflow, 5) Preview as admin first to test, 6) Publish to target audience, 7) Monitor NotificationReadState for engagement. For conversion-related changes: consider A/B test setup.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "workflow",
+    "press-release",
+    "notifications",
+    "user-communication",
+    "product-launch"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:17:05Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_26582",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Maintaining internal changelog (human-curated, better than git)",
+  "command": "",
+  "lesson": "When completing significant work: 1) Create changelog file in /docs/changelogs/ with format YYYY-MM-DD-descriptive-name.md, 2) Document INTENT (what user experiences now vs before), 3) List all modified files with paths, 4) Explain verification steps for humans to test, 5) Document assumptions made (with checkboxes for validation), 6) Never include raw code blocks - translate to UX terms, 7) State success criteria and how to measure. File must start with date then precise description. See /docs/changelogs/2025-05-24-gpt5-routing-updates.md for example.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "changelog",
+    "documentation",
+    "human-readable",
+    "verification"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:17:17Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_26923",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW TRIGGER: After task completion → Check if conversion-related → Offer A/B test setup",
+  "command": "",
+  "lesson": "When agent completes ANY task: 1) Query memory for conversion-rate tags, 2) If task involved: landing pages, pricing, checkout flow, trial signup, payment forms, email CTAs, notification messaging, or UI changes affecting conversion funnel → 3) Offer to set up A/B test, 4) If yes: [A/B TEST PROTOCOL NEEDED IN MEMORY], 5) Document test hypothesis, control vs variant, success metrics, sample size needed. Critical: Never deploy conversion changes without A/B test consideration.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "workflow",
+    "trigger",
+    "conversion-optimization",
+    "ab-testing",
+    "decision-point"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:17:32Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_27462",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Stripe webhook changes → TDD with CONFIRMED mocks → Test on real account → Human approval",
+  "command": "",
+  "lesson": "When modifying Stripe webhooks or payment code: 1) Check if CONFIRMED mock exists in /subscriptions-and-stripe-webhooks/mocks/, 2) If not, request real Stripe data using stripe trigger event_name, 3) Create mock with CONFIRMED_ prefix, 4) Write failing test using mock, 5) Build new helper function (don't modify existing), 6) Test against mock until passing, 7) Use CLI at /account-management to test on single real account, 8) Get human verification before deploying. Never assume Stripe data structures - always verify. Follow 7-layer architecture: validators→entity-resolvers→state-determiners→persistence→side-effects→migrations.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "stripe",
+    "webhooks",
+    "tdd",
+    "testing",
+    "payment-flow",
+    "critical"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:22:43Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_33375",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Agent pulse check - Generates strategic priority recommendation",
+  "command": "",
+  "lesson": "When user says 'pulse check': 1) Query memory for tags: churn, conversion-rate, strategic-initiatives, wip, critical, 2) Review initiatives-map: 8 WIP initiatives (Voice Agents prio 12, Modern UI prio 11, Logger Trace prio 10, Email Testing 9, Funnel Refactor 9, Stripe Churn Reports 9, CLI Tools 9, Logger-PostHog 9), 3) Check current KPIs: MRR churn 15% as of Oct 31 2025 [ASK HUMAN: conversion rate, trial-to-paid %, active users], 4) Query recent issues for blockers, 5) Generate recommendation: 'Based on [KPI], highest impact is [initiative] because [specific churn/conversion impact]. Next unblocked task: [specific actionable task]'. Format includes confidence level and asks for missing KPI data.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "pulse-check",
+    "strategic-planning",
+    "kpis",
+    "priorities",
+    "automation"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:22:53Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_33628",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: A/B test setup protocol (complete procedure)",
+  "command": "",
+  "lesson": "When setting up A/B test: 1) Define hypothesis: 'Changing [X] will improve [Y] by [Z]%', 2) Identify metric to track (conversion rate, trial signup, churn reduction, engagement), 3) [ASK HUMAN: Which A/B testing system? PostHog, Optimizely, custom?], 4) Create control and variant configurations, 5) Set sample size calculation based on current baseline and desired effect size, 6) Configure tracking events in PostHog/Meta Pixel, 7) Document test in [ASK HUMAN: Where to document A/B tests? Suggest /docs/ab-tests/YYYY-MM-DD-test-name.md], 8) Set success criteria BEFORE launch (confidence level, minimum sample size, duration), 9) Review results only after statistical significance reached. Never deploy conversion changes without considering A/B test.",
+  "success_rate": "",
+  "confidence": "8",
+  "tags": [
+    "workflow",
+    "ab-testing",
+    "conversion-optimization",
+    "testing",
+    "experimentation"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:05Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34022",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Churn reduction decision tree (categorize all work by churn impact)",
+  "command": "",
+  "lesson": "When starting ANY task, ask: 'Does this reduce churn?' If yes, categorize: 1) VALUE DELIVERY (Gen3 UI migration 4/10→10/10, coaching quality improvements via Gen3 agents, feature additions), 2) COST PERCEPTION (pricing clarity, feature visibility, trial experience), 3) USER EXPERIENCE (bug fixes, friction removal, performance), 4) ENGAGEMENT (notifications via /admin2/notifications, emails, retention hooks). Tag work with 'churn-reduction' + category. Log expected churn impact in changelog. Current baseline: MRR churn 15% as of Oct 31 2025. Connect to strategic initiatives: Modern UI Redesign (initiative #7309 prio 11), Voice Agents (prio 12), coaching modernization. All churn work should move toward target of [ASK HUMAN: What is target churn rate?].",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "churn-reduction",
+    "strategic-impact",
+    "decision-tree",
+    "kpis"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:17Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34385",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Gen3 UI migration (systematic page modernization)",
+  "command": "",
+  "lesson": "When migrating page to Gen3 styles: 1) Create new component in /src/features/[feature-name]/components/ or /gen4/ directory (NEVER mix with old file system), 2) Import Gen3 design system from /src/features/welcome-onboarding/styles/gen3-design-system.css, 3) Use .gen3-root wrapper, Gen3 typography classes (.gen3-text-h1, .gen3-text-title2, .gen3-text-body), 4) Use CSS custom properties (var(--gen3-space-4), var(--gen3-text-primary)), 5) Support both dark (.gen3-root) and light themes (.gen3-light-theme), 6) Reference /welcome and /hub pages as style examples, 7) Test both themes, 8) Document in changelog with before (4/10) and after (10/10) quality ratings, 9) Never use plain CSS when Tailwind available. Goal: entire app at 10/10 visual quality to reduce churn via perceived value.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "gen3",
+    "ui-migration",
+    "design-system",
+    "churn-reduction"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:31Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_34952",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Strategic initiative progress tracking (keep initiatives-map current)",
+  "command": "",
+  "lesson": "After completing work, check if related to initiatives-map (Voice Agents #7301, Binaural Beats #7306, Modern UI #7309, Logger Trace #7305, Email Testing #7302, Funnel Refactor #7303, Stripe Churn Reports #7304, CLI Tools #7307, Logger-PostHog #7308): 1) Determine which initiative this advances, 2) Update status using workflow: IDEA→NEXT→PLAN→CODE→WIP→TEST→REVIEW→SHIP→LIVE, 3) Document progress in /docs/initiatives/[initiative-name].md, 4) If blocked, create issue in /docs/issues/ with blocker tag and initiative reference, 5) If complete, update /docs/initiatives/initiatives-map.md with new status, 6) Connect to KPIs: explain how this moves churn (currently 15%), conversion, or coaching quality metrics. Provides visibility into strategic progress.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "workflow",
+    "initiatives",
+    "progress-tracking",
+    "strategic-planning",
+    "status-updates"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:43Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_35233",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "WORKFLOW: Major feature completion → OFFER to draft press release (not create automatically)",
+  "command": "",
+  "lesson": "When completing major feature/innovation: 1) Agent asks: 'This seems like a major feature. Would you like me to draft a press release for user announcement?', 2) If yes: draft in user-benefit language (NOT technical details), focus on value delivered, 3) [ASK HUMAN: Where to save press releases? Suggest /docs/press-releases/YYYY-MM-DD-feature-name.md or Google Drive location?], 4) Include sections: headline, user benefit summary, key features in simple terms, availability, 5) After drafting, ALSO offer to create Gen3 notification at /admin2/notifications with funnel stage targeting, 6) Press release should be reviewed by human before any external use. Agent should NOT assume something is press-release-worthy - always offer and let human decide.",
+  "success_rate": "",
+  "confidence": "9",
+  "tags": [
+    "workflow",
+    "press-release",
+    "user-communication",
+    "major-features",
+    "offer-not-assume"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:23:57Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_35500",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "KPI BASELINES: Current metrics for IX Coach (Oct 31 2025)",
+  "command": "",
+  "lesson": "Key Performance Indicators as of Oct 31 2025: MRR churn rate 15%. [ASK HUMAN for current values: conversion rate (landing→trial), trial-to-paid conversion %, active user count, average session quality score, UI quality perception score (currently 4/10, target 10/10)]. Strategic focus: reduce churn through VALUE DELIVERY (Gen3 UI 4/10→10/10), improve COACHING QUALITY (Gen3 agents with 5 modes), optimize CONVERSION (A/B testing system). All work should connect to moving these KPIs. Top initiatives: Modern UI Redesign (prio 11), Voice Agents (prio 12), Logger Trace (prio 10). Query this memory when generating pulse checks or prioritizing work.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "kpis",
+    "metrics",
+    "baselines",
+    "churn",
+    "conversion",
+    "strategic-focus",
+    "oct-2025"
+  ]
+}

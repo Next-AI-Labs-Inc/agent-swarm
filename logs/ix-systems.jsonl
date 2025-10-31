@@ -1,0 +1,42 @@
+{"timestamp":"2025-10-31T06:48:35Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_83705","repo":"ix-systems","event_type":"pattern","context":"When coordinating GPT-5 reasoning across repos","command":"","lesson":"Model archetypes defined in both frontend (dashboard selector) and backend (config manifest) must stay aligned. API emits reasoning via SSE, frontend consumes for admin-only visibility. Customer UX never exposes raw reasoning. Tight coupling prevents UX/API mismatch.","success_rate":"","confidence":"9","tags":["pattern","gpt-5","reasoning","frontend-backend-coordination"]}
+{"timestamp":"2025-10-31T06:48:44Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_83926","repo":"ix-systems","event_type":"pattern","context":"When mirroring dev tooling across repos","command":"","lesson":"Both frontend and backend host internal docs at localhost:4173 with auto-enrichment from commits. Command bar shortcuts access both changelogs. Symmetric testing infrastructure: advisory Jest frontend, agent tools backend. Creates unified developer experience.","success_rate":"","confidence":"9","tags":["pattern","dev-tooling","internal-docs","parity"]}
+{"timestamp":"2025-10-31T06:48:55Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_84187","repo":"ix-systems","event_type":"pattern","context":"When IX Coach optimizes for multiple KPIs","command":"","lesson":"KPIs tracked: conversion rate (SEO landing pages), coaching quality (GPT-5 reasoning), operational velocity (advisory tests, internal docs), SEO visibility (structured data), analytics accuracy (bot gating), enterprise readiness (SOC 2). Cache diagnostics optimize costs. SEO funnel drives acquisition. Compliance supports sales.","success_rate":"","confidence":"9","tags":["pattern","kpi","strategy","optimization"]}
+{"timestamp":"2025-10-31T06:49:06Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_84468","repo":"ix-systems","event_type":"pattern","context":"When IX Coach executes three strategic pillars","command":"","lesson":"Three concurrent pillars: (1) GPT-5 Integration - reasoning visibility, model presets, streaming hardening, thinking indicators, customer UX protection; (2) SEO Optimization - keyword landing generation, structured data, bot detection, marketing APIs, FAQ content; (3) Admin Tooling - internal docs, session diagnostics, advisory CI/CD, command bar shortcuts.","success_rate":"","confidence":"9","tags":["pattern","strategy","pillars","gpt-5","seo","admin-tooling"]}
+{"timestamp":"2025-10-31T06:49:15Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_84698","repo":"ix-systems","event_type":"pattern","context":"When new features roll out to customers","command":"","lesson":"Pattern: admin preview/triage tools built before customer rollout. SEO pages get admin command center. Reasoning gets admin-only toggle. Session diagnostics provide visibility. Internal docs auto-enrich. Ensures quality before customer exposure.","success_rate":"","confidence":"9","tags":["pattern","rollout","admin-first","quality"]}
+{
+  "timestamp": "2025-10-31T06:59:06Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_4024",
+  "repo": "ix-systems",
+  "event_type": "intent",
+  "context": "When validating new logging implementations across frontend and backend",
+  "command": "",
+  "lesson": "Validate logging by: (1) Trigger the event, (2) Hit /api/admin/admin-logs (or UI) to confirm raw payload preserved, (3) If session-scoped, confirm /api/admin/session-diagnostics shows same status. Both surfaces must display the event with collapsible raw payload blocks.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "logging",
+    "validation",
+    "testing",
+    "admin-logs",
+    "session-diagnostics",
+    "protocol"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:59:57Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_5065",
+  "repo": "ix-systems",
+  "event_type": "intent",
+  "context": "When /admin/admin-logs UI is mentioned but not yet implemented",
+  "command": "",
+  "lesson": "AGENTS.md references /admin/admin-logs UI that should mirror session diagnostics styling with collapsible raw payload blocks for non-session operational signals. This UI is NOT YET IMPLEMENTED. Backend endpoint GET /api/admin/admin-logs exists. Frontend UI at /admin/admin-logs needs to be built to match session diagnostics patterns.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "admin-logs",
+    "wip",
+    "incomplete",
+    "ui",
+    "todo"
+  ]
+}

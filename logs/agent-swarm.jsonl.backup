@@ -1,0 +1,178 @@
+{
+  "timestamp": "2025-10-31T05:28:55Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84795",
+  "repo": "agent-swarm",
+  "event_type": "pattern",
+  "context": "Swarm intelligence pattern - JSONL append-only + jq/MCP retrieval",
+  "command": "",
+  "lesson": "use append-only JSONL per repo; agents never read full logs into context; retrieval is keyword/semantic via jq/MCP returning top-5 summaries to keep context small",
+  "success_rate": "10/10",
+  "tags": [
+    "swarm",
+    "memory",
+    "jsonl",
+    "jq",
+    "mcp",
+    "context"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:06Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85080",
+  "repo": "agent-swarm",
+  "event_type": "pattern",
+  "context": "Making code portable for OSS - environment variables vs hardcoded paths",
+  "command": "",
+  "lesson": "when creating OSS from internal code replace hardcoded paths like /Users/jedi/path with env vars like $AGENT_SWARM_PATH - add .gitignore to block private data (logs/*.jsonl) - document setup in README requiring users to export env var",
+  "success_rate": "5/5",
+  "tags": [
+    "oss",
+    "portability",
+    "environment-variables",
+    "privacy"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:15Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85307",
+  "repo": "agent-swarm",
+  "event_type": "intent",
+  "context": "When agents should log memories to swarm system",
+  "command": "",
+  "lesson": "ALWAYS log at task boundaries: after completing task (state UX intent fulfilled) after learning code intent (WHY at any level) after overcoming error after resolving misunderstanding after discovering pattern - capture intent at appropriate abstraction level (component module feature system organism) - holonic nature matters",
+  "success_rate": "",
+  "tags": [
+    "swarm",
+    "memory",
+    "logging",
+    "intent",
+    "holonic",
+    "task-boundaries"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:28:58Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_53102",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent analyzes gptcoach2 g3 branch commit history to build institutional memory",
+  "command": "",
+  "lesson": "Agent completed analysis of gptcoach2 g3 branch commits from 2025-10-29 back to 2025-10-27, extracting UX intent, architectural patterns, and strategic direction. Logged 9 memories covering: (1) SEO landing page generation system with admin tooling, (2) marketing API endpoints and structured data, (3) advisory Jest CI/CD workflow, (4) Facebook Pixel error handling for ad blockers, (5) bot detection for analytics gating, (6) GPT-5 reasoning visibility system, (7) internal docs auto-enrichment workflow, (8) markdown rendering fixes for coaching UI, (9) session diagnostics filtering system, plus meta-pattern about company strategic pillars. Next: continue backward through commits beyond Oct 27 to find divergence from production and capture earlier innovations. Current commit position: 86b27c13 (2025-10-27 20:26:53). Remaining commits to analyze: approximately 30-40 more to reach production divergence point.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "progress",
+    "gptcoach2",
+    "g3-branch",
+    "commit-analysis",
+    "memory-extraction",
+    "Oct-29-to-Oct-27"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:30:22Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_55761",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent completes gptcoach2 g3 branch analysis phase 1",
+  "command": "",
+  "lesson": "Agent completed targeted analysis of gptcoach2 g3 branch focusing on recent innovations from Oct 29-26, 2025. Captured 12 memories including: GPT-5 operational milestone (Oct 27), SEO landing page system, marketing APIs, advisory CI/CD, analytics protection, reasoning visibility, internal docs workflow, markdown rendering, session diagnostics filtering, Gen3 architectural patterns, and strategic meta-pattern. Identified divergence: 622 commits ahead of production with 339 in October 2025 alone. Key finding: GPT-5 went operational Oct 27 (commit ce6388de) representing major production cutover. System shows three strategic pillars: GPT-5 readiness, SEO optimization, and admin tooling excellence. Next phase: analyze ixcoach-api repository following same methodology - extract UX intent, completion timestamps, architectural patterns, and KPI focus from commit history.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "progress",
+    "gptcoach2",
+    "phase-1-complete",
+    "622-commits-diverged",
+    "oct-2025",
+    "next-api-repo"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:32:21Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_59449",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent completes institutional memory extraction from IX Coach g3 branches",
+  "command": "",
+  "lesson": "Agent completed comprehensive analysis of gptcoach2 and ixcoach-api g3 branches from Oct 29-26, 2025, capturing intent, patterns, and strategic direction. Logged 16 total memories across repos: gptcoach2 (12 memories) - SEO landing pages, marketing APIs, advisory CI/CD, analytics protection, GPT-5 reasoning visibility, internal docs, markdown rendering, session diagnostics, Gen3 patterns, strategic pillars, GPT-5 operational milestone; ixcoach-api (4 memories) - GPT-5 cache diagnostics, SOC 2 compliance, reasoning streaming architecture, internal docs/testing parity; plus 2 cross-cutting patterns about company strategy and full-stack coordination. Key findings: GPT-5 went operational Oct 27 2025, 622 commits diverged from production in gptcoach2, system demonstrates monorepo-style coordination despite separate repos, three strategic pillars (GPT-5 integration, SEO optimization, admin tooling excellence), KPIs tracked include conversion rate, coaching quality, operational velocity, SEO visibility, analytics accuracy, enterprise readiness. All memories include confidence scores, tags for retrieval, and UX-first descriptions enabling future agents to understand both technical implementation and user impact.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "completion",
+    "gptcoach2",
+    "ixcoach-api",
+    "g3-branch",
+    "16-memories",
+    "oct-2025",
+    "full-analysis"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:43:32Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_74307",
+  "repo": "agent-swarm",
+  "event_type": "intent",
+  "context": "Starting comprehensive ixcoach-api documentation ingestion task",
+  "command": "",
+  "lesson": "Agent initiated full scan of ixcoach-api/docs to create modular memories with file timestamps, summaries, tags, and atomic insights for high-value documents",
+  "success_rate": "0/1",
+  "confidence": "10",
+  "tags": [
+    "documentation",
+    "ixcoach-api",
+    "memory-ingestion",
+    "task-start"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:45:08Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_77642",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "Doc ingestion progress: logged 3 index files",
+  "command": "",
+  "lesson": "Successfully logged DOCS_MAP (doc organization system), initiatives-map (8 WIP strategic initiatives), and issues INDEX (webhook/auth/subscription issues catalog) to memory. Next: process high-value system docs (auth flows, payment journeys, API guides)",
+  "success_rate": "3/2310",
+  "confidence": "10",
+  "tags": [
+    "documentation",
+    "memory-ingestion",
+    "progress",
+    "checkpoint"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:46:28Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_80159",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "Doc ingestion progress: logged 7 core system docs",
+  "command": "",
+  "lesson": "Logged: DOCS_MAP (org structure), initiatives-map (8 WIP initiatives), issues INDEX (bug catalog), UserJourneyPhases (4-phase payment flow), coach-model-presets (6 GPT-5 archetypes), subscription OVERVIEW (4-phase fix strategy), CLI ARCHITECTURE (7-layer testing pattern). Next: process recent changelogs, critical issues, API guides",
+  "success_rate": "7/2310",
+  "confidence": "10",
+  "tags": [
+    "documentation",
+    "memory-ingestion",
+    "progress",
+    "checkpoint"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:49:27Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84951",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent breaks down massive memories into atomic entries",
+  "command": "",
+  "lesson": "Agent created 30+ atomic memories (200-300 chars each) from Oct 29-27 commits with correct commit timestamps. Covered: SEO landing pages, Helmet fix, URL simplification, marketing APIs, advisory Jest, fbq wrapper, bot detection, skip-thinking removal, modal prompts, markdown fixes, auto-scroll, GPT-5 milestone, reasoning toggle, cache diagnostics, SOC 2, reasoning streaming, agent tools. Plus 7 pattern memories covering Gen3 admin, session diagnostics, GPT-5 coordination, dev tooling parity, KPI optimization, strategic pillars, admin-first rollout.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "progress",
+    "atomic-memories",
+    "proper-timestamps",
+    "30-plus-entries"
+  ]
+}

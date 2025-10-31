@@ -1,52 +1,80 @@
+{"timestamp":"2025-10-31T05:28:55Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_84795","repo":"agent-swarm","event_type":"pattern","context":"Swarm intelligence pattern - JSONL append-only + jq/MCP retrieval","command":"","lesson":"use append-only JSONL per repo; agents never read full logs into context; retrieval is keyword/semantic via jq/MCP returning top-5 summaries to keep context small","success_rate":"10/10","tags":["swarm","memory","jsonl","jq","mcp","context"]}
+{"timestamp":"2025-10-31T05:29:06Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_85080","repo":"agent-swarm","event_type":"pattern","context":"Making code portable for OSS - environment variables vs hardcoded paths","command":"","lesson":"when creating OSS from internal code replace hardcoded paths like /Users/jedi/path with env vars like $AGENT_SWARM_PATH - add .gitignore to block private data (logs/*.jsonl) - document setup in README requiring users to export env var","success_rate":"5/5","tags":["oss","portability","environment-variables","privacy"]}
+{"timestamp":"2025-10-31T05:29:15Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_85307","repo":"agent-swarm","event_type":"intent","context":"When agents should log memories to swarm system","command":"","lesson":"ALWAYS log at task boundaries: after completing task (state UX intent fulfilled) after learning code intent (WHY at any level) after overcoming error after resolving misunderstanding after discovering pattern - capture intent at appropriate abstraction level (component module feature system organism) - holonic nature matters","success_rate":"","tags":["swarm","memory","logging","intent","holonic","task-boundaries"]}
+{"timestamp":"2025-10-31T06:43:32Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_74307","repo":"agent-swarm","event_type":"intent","context":"Starting comprehensive ixcoach-api documentation ingestion task","command":"","lesson":"Agent initiated full scan of ixcoach-api/docs to create modular memories with file timestamps, summaries, tags, and atomic insights for high-value documents","success_rate":"0/1","confidence":"10","tags":["documentation","ixcoach-api","memory-ingestion","task-start"]}
+{"timestamp":"2025-10-31T06:45:08Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_77642","repo":"agent-swarm","event_type":"success","context":"Doc ingestion progress: logged 3 index files","command":"","lesson":"Successfully logged DOCS_MAP (doc organization system), initiatives-map (8 WIP strategic initiatives), and issues INDEX (webhook/auth/subscription issues catalog) to memory. Next: process high-value system docs (auth flows, payment journeys, API guides)","success_rate":"3/2310","confidence":"10","tags":["documentation","memory-ingestion","progress","checkpoint"]}
+{"timestamp":"2025-10-31T06:46:28Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_80159","repo":"agent-swarm","event_type":"success","context":"Doc ingestion progress: logged 7 core system docs","command":"","lesson":"Logged: DOCS_MAP (org structure), initiatives-map (8 WIP initiatives), issues INDEX (bug catalog), UserJourneyPhases (4-phase payment flow), coach-model-presets (6 GPT-5 archetypes), subscription OVERVIEW (4-phase fix strategy), CLI ARCHITECTURE (7-layer testing pattern). Next: process recent changelogs, critical issues, API guides","success_rate":"7/2310","confidence":"10","tags":["documentation","memory-ingestion","progress","checkpoint"]}
+{"timestamp":"2025-10-31T06:49:27Z","agent_id":"agent_Next-AI-Labs-M4-Macbook_84951","repo":"agent-swarm","event_type":"success","context":"When agent breaks down massive memories into atomic entries","command":"","lesson":"Agent created 30+ atomic memories (200-300 chars each) from Oct 29-27 commits with correct commit timestamps. Covered: SEO landing pages, Helmet fix, URL simplification, marketing APIs, advisory Jest, fbq wrapper, bot detection, skip-thinking removal, modal prompts, markdown fixes, auto-scroll, GPT-5 milestone, reasoning toggle, cache diagnostics, SOC 2, reasoning streaming, agent tools. Plus 7 pattern memories covering Gen3 admin, session diagnostics, GPT-5 coordination, dev tooling parity, KPI optimization, strategic pillars, admin-first rollout.","success_rate":"","confidence":"10","tags":["progress","atomic-memories","proper-timestamps","30-plus-entries"]}
 {
-  "timestamp": "2025-10-31T05:28:55Z",
-  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84795",
+  "timestamp": "2025-10-31T06:53:55Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_95683",
   "repo": "agent-swarm",
-  "event_type": "pattern",
-  "context": "Swarm intelligence pattern - JSONL append-only + jq/MCP retrieval",
+  "event_type": "success",
+  "context": "Doc ingestion progress: logged 13 memories, read 5 system READMEs",
   "command": "",
-  "lesson": "use append-only JSONL per repo; agents never read full logs into context; retrieval is keyword/semantic via jq/MCP returning top-5 summaries to keep context small",
-  "success_rate": "10/10",
+  "lesson": "Progress: DOCS_MAP, initiatives, issues INDEX, UserJourneyPhases, coach-model-presets, subscription OVERVIEW, CLI ARCHITECTURE, 2 May changelogs, 4 Gen3 docs. Read main README (JWT auth, error handling, Initiatives API, Stripe integration, testing), account-management README (7-layer CLI, escape key navigation, context preservation), subscriptions README (layered architecture, plan resolver), analytics README (PostHog session links), loggers README (Slack utilities). Next: process remaining 34 READMEs, recent docs, all documentation guides.",
+  "success_rate": "13/2310",
+  "confidence": "10",
   "tags": [
-    "swarm",
-    "memory",
-    "jsonl",
-    "jq",
-    "mcp",
-    "context"
+    "documentation",
+    "memory-ingestion",
+    "progress",
+    "checkpoint",
+    "readmes"
   ]
 }
 {
-  "timestamp": "2025-10-31T05:29:06Z",
-  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85080",
+  "timestamp": "2025-10-31T07:01:14Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_6919",
   "repo": "agent-swarm",
-  "event_type": "pattern",
-  "context": "Making code portable for OSS - environment variables vs hardcoded paths",
+  "event_type": "success",
+  "context": "When agent completes session diagnostics and security protocol documentation",
   "command": "",
-  "lesson": "when creating OSS from internal code replace hardcoded paths like /Users/jedi/path with env vars like $AGENT_SWARM_PATH - add .gitignore to block private data (logs/*.jsonl) - document setup in README requiring users to export env var",
-  "success_rate": "5/5",
-  "tags": [
-    "oss",
-    "portability",
-    "environment-variables",
-    "privacy"
-  ]
-}
-{
-  "timestamp": "2025-10-31T05:29:15Z",
-  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85307",
-  "repo": "agent-swarm",
-  "event_type": "intent",
-  "context": "When agents should log memories to swarm system",
-  "command": "",
-  "lesson": "ALWAYS log at task boundaries: after completing task (state UX intent fulfilled) after learning code intent (WHY at any level) after overcoming error after resolving misunderstanding after discovering pattern - capture intent at appropriate abstraction level (component module feature system organism) - holonic nature matters",
+  "lesson": "Agent captured 13 critical memories: (1-6) Canonical logging flow - session-scoped uses logAdminOnlyConversationAspect, operational uses recordAdminLog, severity metadata structure, validation protocol, production behavior, (7-9) Session diagnostics UI - timeline filtering, tag definitions, incomplete /admin/admin-logs UI, (10-13) Admin security - gen3SecureAdminVerification mandatory for all admin features, requireFullAdmin for privilege levels, simulateNonAdmin blocks admin access, withGen3SecureAdminAuth HOC pattern. Total 90 atomic memories across all repos.",
   "success_rate": "",
+  "confidence": "10",
   "tags": [
-    "swarm",
-    "memory",
+    "completion",
+    "session-diagnostics",
+    "security",
     "logging",
-    "intent",
-    "holonic",
-    "task-boundaries"
+    "canonical-protocol",
+    "90-total-memories"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:07:34Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_16002",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent completes gen4 feature audit for gptcoach2",
+  "command": "",
+  "lesson": "Agent documented 11 gen4 features: (1) Feature flag system with 3 status levels, (2) AdminFeatureDashboard showing grouped features, (3) GlobalThemeModal with live preview, (4-6) WIP features: MOOD_TRACKER (incomplete UI), MEMORIES (incomplete UI), STATUS_MANAGEMENT (partial - UI exists, backend may be incomplete), (7) COACHES_PAGES partial implementation, (8) COUNSELORS_PAGES partial implementation, (9) AdminChangelogPage fully implemented, (10) AdminNotificationsPage fully implemented with targeting, (11) ChangelogEmailComposerPage integration. Total institutional knowledge: 103 atomic memories.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "completion",
+    "gen4-audit",
+    "11-features",
+    "wip-noted",
+    "103-total-memories"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:17:37Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_27568",
+  "repo": "agent-swarm",
+  "event_type": "success",
+  "context": "When agent corrects gen4 misconception in institutional memory",
+  "command": "",
+  "lesson": "Agent corrected critical misconception: Gen4 does not exist. The src/gen4 directory is an anti-pattern from past agent confusion. All components are Gen3. Added 2 corrective memories explaining that gen4 references should be treated as misplaced Gen3 code. Previous memories mentioning gen4 should be interpreted as Gen3 features that were incorrectly organized. Total: 105 atomic memories.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "correction",
+    "gen4-misconception",
+    "anti-pattern",
+    "gen3-only",
+    "105-memories"
   ]
 }

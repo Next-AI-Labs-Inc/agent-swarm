@@ -1,0 +1,379 @@
+{
+  "timestamp": "2025-10-31T06:31:03Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_57448",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When backend needs to monitor GPT-5 prompt caching performance and cost optimization",
+  "command": "",
+  "lesson": "When ixcoach-api processes GPT-5 requests, the system logs cache diagnostics warnings to track cached token usage and optimize costs (commits dbbe8cdf, 026d964b). GPT-5 cache diagnostics coverage was refined to provide visibility into prompt caching hits/misses, enabling admins to monitor whether repeated coaching context is being efficiently cached by OpenAI. The API aligns GPT-5 reasoning configs with frontend manifest (commit be1a6283) ensuring backend reasoning effort settings match UI mode metadata exposed in coaching dashboard. This coordination between frontend archetypes (Instant, Thinking Mini, Thinking, Pro) and backend config prevents mismatch where UI promises reasoning but API doesn't deliver it. Cache logging helps optimize token costs by surfacing opportunities to restructure prompts for better cache hit rates.",
+  "success_rate": "5/5",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "caching",
+    "cost-optimization",
+    "reasoning-config",
+    "diagnostics",
+    "logging",
+    "token-usage",
+    "prompt-caching"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:31:13Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_57747",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When IX Coach needs SOC 2 compliance documentation for security audits and enterprise sales",
+  "command": "",
+  "lesson": "When ixcoach-api undergoes SOC 2 compliance review or enterprise customers request security documentation, the system now includes SOC 2 control matrix and evidence checklist (commit 822d0a2c) documenting security controls, data handling practices, access management, and audit evidence. This documentation maps IX Coach's technical controls to SOC 2 Trust Service Criteria categories (Security, Availability, Processing Integrity, Confidentiality, Privacy), enables auditors to verify compliance, and accelerates enterprise sales by providing security assurance documentation proactively. The control matrix covers authentication, authorization, encryption, logging, monitoring, incident response, and data governance aligned with SOC 2 Type II requirements. This positions IX Coach for enterprise adoption where security compliance is procurement requirement.",
+  "success_rate": "1/1",
+  "confidence": "10",
+  "tags": [
+    "soc-2",
+    "compliance",
+    "security",
+    "enterprise",
+    "audit",
+    "documentation",
+    "trust-service-criteria",
+    "procurement"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:31:34Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_58355",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When GPT-5 API needs to stream reasoning traces to admin diagnostics while keeping customer responses clean",
+  "command": "",
+  "lesson": "When ixcoach-api processes GPT-5 requests with reasoning enabled, the Responses client emits structured reasoning chunks that SSE layer wraps into separate reasoning deltas before forwarding through streaming pipeline (commit Oct 27). The system keeps reasoning separate from regular user transcript so hidden thoughts stay admin-only - customers never see raw reasoning, only final responses. Auto reasoning payloads for GPT-5 requests were fixed to prevent unintended reasoning metadata in non-reasoning modes. The API emits explicit severity and summary metadata for admin diagnostics logs, marking retrieval fallbacks as errors and zero-result memory/global searches as warnings so /admin2/session-diagnostics can filter degraded runs immediately. Duplicate GPT-5 stream envelopes were fixed to prevent repeated chunks. This architecture enables admins to audit reasoning quality via session diagnostics while maintaining clean customer UX.",
+  "success_rate": "5/5",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "reasoning",
+    "streaming",
+    "sse",
+    "admin-diagnostics",
+    "severity-metadata",
+    "customer-ux",
+    "separation-of-concerns"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:31:46Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_58599",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When API developers need internal changelog and testing infrastructure similar to frontend",
+  "command": "",
+  "lesson": "When ixcoach-api developers need to review recent changes and test infrastructure, the API now auto-hosts internal changelog locally at localhost:4173/ixcoach-api/docs/internal/index.html (mirroring frontend pattern), boots alongside dev server, and provides command bar shortcut from frontend dashboard. The system creates internal changelog with recent changes, includes new testing tools for agents (commit Oct 27), hides legacy tests, adds session logging for debugging, updates model strategy documentation, and documents API config. This enables agents and developers to query institutional knowledge about API changes without searching git history, maintains parity with frontend docs workflow, and centralizes testing patterns. The internal docs integration creates symmetric developer experience where both frontend and backend have accessible change logs with agent-friendly formats.",
+  "success_rate": "5/5",
+  "confidence": "10",
+  "tags": [
+    "internal-docs",
+    "api",
+    "testing",
+    "dev-tooling",
+    "changelog",
+    "localhost",
+    "command-bar",
+    "parity",
+    "agent-tools"
+  ]
+}
+{
+  "timestamp": "2025-10-31T06:36:19Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_64403",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When marketing agents need IX Coach briefing data",
+  "command": "",
+  "lesson": "GET /ai/briefing endpoint serves structured JSON from briefing.json with recency metadata and cache headers. GET /press endpoint serves newsArticles.json. Both documented in Swagger. Enables partner agents to consume briefings programmatically.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "api",
+    "marketing",
+    "briefing",
+    "endpoints",
+    "swagger",
+    "commit:d49a1c5c"
+  ]
+}
+{
+  "timestamp": "2025-10-29T18:27:19Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_76007",
+  "repo": "ixcoach-api",
+  "event_type": "intent",
+  "context": "When marketing agents query IX Coach briefing",
+  "command": "",
+  "lesson": "GET /ai/briefing serves structured JSON from briefing.json with metadata and cache headers. GET /press serves newsArticles.json. Both documented in Swagger for partner agent consumption.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "api",
+    "marketing",
+    "briefing",
+    "endpoints",
+    "swagger",
+    "commit:d49a1c5c"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_76637",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "/docs/DOCS_MAP.md defines mandatory documentation organization structure",
+  "command": "",
+  "lesson": "Documentation Organization System: All docs must follow strict directory rules - changelogs in /docs/changelogs/, issues in /docs/issues/, domain docs in /docs/documentation/{domain}/. Decision flowchart determines placement: completed changes→changelog, bugs→issues, IXCoach-specific→/ixc/, tests→/tests/, initiatives→/initiatives/. Never create new top-level folders without approval. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/DOCS_MAP.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "documentation",
+    "structure",
+    "pattern",
+    "docs-map",
+    "file-organization"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_76939",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "/docs/initiatives/initiatives-map.md tracks strategic initiatives with priority and status",
+  "command": "",
+  "lesson": "Strategic Initiatives Dashboard (2025-10-28): 8 active WIP initiatives including Voice Agents Integration (prio 12), Modern UI Redesign (11), Logger Trace System (10), Email Testing (9), Funnel Stage Refactoring (9), Stripe Churn Reports (9), CLI Tools Refactoring (9), Logger-PostHog Integration (9). Status workflow: IDEA→NEXT→PLAN→CODE→WIP→TEST→REVIEW→SHIP→LIVE. All initiatives backend-prioritized for fastest implementation. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/initiatives/initiatives-map.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "initiatives",
+    "strategic-planning",
+    "roadmap",
+    "priorities",
+    "status-tracking"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_77297",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "/docs/issues/INDEX.md catalogs current and resolved issues",
+  "command": "",
+  "lesson": "Issues Catalog Structure: Webhook processing (missing user crashes), subscription management (paid users losing premium access), authentication (Firebase provider, email mismatch), data sync (MongoDB-Firebase sync, subscription logging mismatch). Resolved: Apple email blocking, Stripe webhook race conditions. Active work: user engagement menu UX, code quality violations. Organized by category: API tests, database issues, webhook issues. Naming convention: YYYY-MM-DD-descriptive-name.md. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/issues/INDEX.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "issues",
+    "bugs",
+    "catalog",
+    "naming-convention",
+    "issue-tracking"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_78638",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Payment User Journey: Complete flow from registration → Stripe → webhook → access",
+  "command": "",
+  "lesson": "Payment Flow Architecture: 4-phase user journey - Phase 1: Registration at go.ixcoach.com creates MongoDB user with currentPlan:1, creates Stripe checkout with client_reference_id. Phase 2: Stripe processes payment, triggers webhooks (checkout.session.completed, customer.subscription.created, invoice.payment_succeeded). Phase 3: Webhooks update user to currentPlan:20 for CC trials. Phase 4: Auth system verifies plan access. Critical failure points: missing client_reference_id, customerEmail undefined, silent save failures. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/documentation/payment_flow/UserJourneyPhases.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "payment-flow",
+    "user-journey",
+    "stripe",
+    "webhooks",
+    "architecture",
+    "critical-path"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:16:22Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_78985",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Coach Model Presets: GPT-5 model archetypes with routing strategy",
+  "command": "",
+  "lesson": "Model Archetype System: 6 presets - original (gpt-4o legacy), auto (gpt-5 with fallbacks), instant (gpt-5-mini ≤800 tokens, tools disabled), thinking_mini (1.6k cap), thinking (gpt-5 default ≈3.5k), pro (gpt-5 8k ceiling, full orchestration). Must sync: backend (utils/modelStrategy.js, gen3/openai/gpt5Config.js, utils/allApiModels.js), frontend (modelArchetypes.js, resolveModeRequest.js, DashboardModelSelector.jsx). Verify with session-diagnostics endpoint. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/system/coach-model-presets.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "model-presets",
+    "archetypes",
+    "routing",
+    "ai-models",
+    "reasoning"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_79476",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Subscription System Overhaul: 4-phase plan to fix payment access issues",
+  "command": "",
+  "lesson": "Subscription Fix Strategy: Phase 1 (24h): Emergency access middleware with monitoring. Phase 2 (48h): Database audit to fix incorrect plan assignments. Phase 3 (3-5d): Webhook improvements with validation, fallback user lookup, resilience. Phase 4 (7+d): Modular rebuild with single-responsibility functions, comprehensive tests. Critical issues: access denial for paying users, CC trial users stuck on free plan, missing webhook fields, poor audit trails, mixed responsibilities in large files. File: /Users/jedi/react_projects/ix/ixcoach-api/docs/subscription/OVERVIEW.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "subscription",
+    "stripe",
+    "access-control",
+    "strategic-plan",
+    "phased-approach",
+    "critical-issue"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:15:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_79822",
+  "repo": "ixcoach-api",
+  "event_type": "pattern",
+  "context": "Account Management CLI: Layered architecture for safe Stripe operations testing",
+  "command": "",
+  "lesson": "CLI Architecture Pattern: 7-layer system for single-point-of-truth operations. Layers: event-handlers (routing), validators (fail-early), entity-resolvers (multi-strategy lookup), state-determiners (pure decision logic), persistence (atomic DB ops), side-effects (post-save notifications/analytics), migrations (gradual adoption). Screen ID system (4-digit unique IDs). TDD-first approach: get real mock → failing test → build helper → test on real account → human approval → deploy. Critical for testing Stripe functions safely before system-wide deployment. File: /Users/jedi/react_projects/ix/ixcoach-api/account-management/ARCHITECTURE_AND_PURPOSE.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "architecture",
+    "cli",
+    "testing",
+    "stripe",
+    "layered-design",
+    "tdd",
+    "single-source-of-truth"
+  ]
+}
+{
+  "timestamp": "2025-10-29T18:46:11Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_81566",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When GPT-5 prompt caching needs monitoring",
+  "command": "",
+  "lesson": "API logs cache diagnostics warnings to track cached token usage. Refined coverage provides visibility into prompt cache hits/misses. Helps optimize costs by surfacing opportunities to restructure prompts for better cache rates.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "caching",
+    "cost-optimization",
+    "diagnostics",
+    "commit:026d964b"
+  ]
+}
+{
+  "timestamp": "2025-05-24T00:00:00Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_81624",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "GPT-5 Routing Updates deployed 2025-05-24",
+  "command": "",
+  "lesson": "GPT-5 Routing (2025-05-24): Added utils/modelStrategy.js. Normalized Responses API. Dropped temperature/top_p. Token ceilings: Instant 800, Mini 1600, Thinking 3500, Pro 8000. File: docs/changelogs/2025-05-24-gpt5-routing-updates.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "deployment",
+    "routing",
+    "changelog"
+  ]
+}
+{
+  "timestamp": "2025-05-24T00:00:00Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_81892",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "Session Diagnostics Admin Endpoint deployed 2025-05-24",
+  "command": "",
+  "lesson": "Session Diagnostics Endpoint (2025-05-24): Added GET /admin/session-diagnostics for grouped coaching session telemetry. Wraps AdminConversationLog records into per-session timelines with status metadata. Registered under admin router for web console access without manual proxying. Response includes groups[] with statuses, logs, timestamps (newest-first). File: docs/changelogs/2025-05-24-session-diagnostics-endpoint.md",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "admin",
+    "diagnostics",
+    "session-telemetry",
+    "changelog",
+    "endpoint"
+  ]
+}
+{
+  "timestamp": "2025-10-29T16:31:15Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_82114",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When enterprise customers request security documentation",
+  "command": "",
+  "lesson": "Added SOC 2 control matrix and evidence checklist documenting security controls, data handling, access management, audit evidence. Maps to Trust Service Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy). Accelerates enterprise sales.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "soc-2",
+    "compliance",
+    "security",
+    "enterprise",
+    "audit",
+    "commit:822d0a2c"
+  ]
+}
+{
+  "timestamp": "2025-10-28T16:26:50Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_82358",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When GPT-5 reasoning configs need frontend alignment",
+  "command": "",
+  "lesson": "API aligns GPT-5 reasoning configs with frontend manifest. Backend reasoning effort settings match UI mode metadata. Prevents mismatch where UI promises reasoning but API doesn't deliver or vice versa.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "reasoning-config",
+    "frontend-backend-alignment",
+    "commit:be1a6283"
+  ]
+}
+{
+  "timestamp": "2025-10-27T20:27:55Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_82684",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When GPT-5 reasoning needs to stream to admin diagnostics",
+  "command": "",
+  "lesson": "Responses client emits structured reasoning chunks that SSE layer wraps into separate deltas. Keeps reasoning separate from user transcript so customers never see raw reasoning. Admin can audit via session diagnostics while customer UX stays clean.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "gpt-5",
+    "reasoning",
+    "streaming",
+    "sse",
+    "admin-separation",
+    "commit:496b056b"
+  ]
+}
+{
+  "timestamp": "2025-10-27T19:33:33Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_82965",
+  "repo": "ixcoach-api",
+  "event_type": "success",
+  "context": "When API adds testing tools for agents",
+  "command": "",
+  "lesson": "Added new testing tools for agents. Hides legacy tests. Adds session logging for debugging. Updates model strategy documentation and API config docs.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "testing",
+    "agent-tools",
+    "debugging",
+    "commit:59d5c478"
+  ]
+}

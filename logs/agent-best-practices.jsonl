@@ -1,0 +1,34 @@
+{
+  "timestamp": "2025-10-31T07:02:19Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_8227",
+  "repo": "agent-best-practices",
+  "event_type": "intent",
+  "context": "When completing any task for user",
+  "command": "",
+  "lesson": "User requires comprehensive memory logging at task completion: 1) Confirmed UX intent and why, 2) What was completed with file names, 3) Codebase-specific patterns discovered, 4) Learnings and resolved confusion, 5) Progress status and next steps. Each memory must be atomic (one specific thing), include context triggers, confidence scores, and relevant tags. Break large work into multiple focused memories.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "best-practices",
+    "memory-logging",
+    "session-completion",
+    "documentation"
+  ]
+}
+{
+  "timestamp": "2025-10-31T07:02:29Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_8483",
+  "repo": "agent-best-practices",
+  "event_type": "pattern",
+  "context": "When user says 'save memories' or 'log your work'",
+  "command": "",
+  "lesson": "User expects separate atomic memories for: every distinct system intent, every confusion resolved, every pattern needed for other agents to consume the work correctly. Use examples format: intent type for UX built, pattern type for learnings, success type for progress checkpoints. Always include confidence scores and --success-rate for error fixes.",
+  "success_rate": "",
+  "confidence": "10",
+  "tags": [
+    "best-practices",
+    "memory-logging",
+    "atomic-memories",
+    "confidence-scoring"
+  ]
+}
