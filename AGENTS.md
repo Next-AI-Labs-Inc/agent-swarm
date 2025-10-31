@@ -10,20 +10,64 @@ You have direct filesystem access to this repository.
 ```bash
 # Set environment variable (already done if you're reading this)
 export AGENT_SWARM_PATH="/Users/jedi/react_projects/ix/agent-swarm-mcp"
+
+# Start MCP server if not running (check first)
+if ! pgrep -f "mcp-server/index.js" > /dev/null; then
+  cd $AGENT_SWARM_PATH/mcp-server && npm start &
+fi
 ```
 
-### Writing Memories
+### WHEN TO CHECK MEMORIES (CRITICAL)
+
+**ALWAYS query memories at these moments:**
+- **Starting any task** - Check if someone already solved this
+- **Context switching** - Query new domain before writing code
+- **Before planning** - Review known patterns and constraints
+- **Before testing** - Look for known test patterns
+- **After errors** - Search for similar errors and solutions
+
+**How to check:**
+```bash
+# Before starting task on authentication
+jq -c 'select(.tags[] | test("auth"; "i"))' $AGENT_SWARM_PATH/logs/*.jsonl | \
+  jq -r '"[\(.confidence)/10] \(.lesson)"' | tail -10
+
+# Before working on specific file/feature
+jq -c 'select(.context | test("AuthMiddleware"; "i"))' $AGENT_SWARM_PATH/logs/*.jsonl | \
+  jq -r '"[\(.confidence)/10] \(.repo): \(.lesson)"' | tail -5
+```
+
+**Pay attention to confidence scores:**
+- 10 = Deterministically verified, trust it
+- 7-9 = Likely correct, verify if critical
+- 1-6 = Needs validation before trusting
+
+### WRITE: How to Save Memories
+
+**REQUIRED:** Include `--confidence` score on EVERY memory.
+
 ```bash
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "REPO_NAME" \
   --type "error|success|pattern|intent" \
   --context "What you were doing" \
-  --lesson "What you learned" \
+  --lesson "What you learned in UX terms (see WRITE.md)" \
   --tags "keyword,tags" \
+  --confidence 10 \
   --success-rate "X/Y"
 ```
 
-### Reading Memories
+**Confidence scale:**
+- 10 = You tested it and saw the exact result (ONLY use 10 if verified)
+- 9 = Read code, traced flow, confirmed logic
+- 8 = Multiple consistent observations
+- 7-1 = Decreasing confidence, needs validation
+
+**NEVER mark 10 unless you deterministically verified it.**
+
+See `$AGENT_SWARM_PATH/WRITE.md` for full UX-first requirements.
+
+### READ: How to Query Memories
 ```bash
 # Query by keyword
 jq -c 'select(.tags[] | test("npm"; "i"))' \
@@ -34,8 +78,13 @@ jq -c 'select(.tags[] | test("npm"; "i"))' \
 cat $AGENT_SWARM_PATH/READ.md
 ```
 
-### When to Log/Query
-See: `$AGENT_SWARM_PATH/WRITE.md` and `$AGENT_SWARM_PATH/READ.md`
+**When to query:** See WHEN TO CHECK MEMORIES section above (task start, context switch, planning, testing, errors)
+
+**When to write:** After completing task, learning intent, overcoming error, resolving misunderstanding, discovering pattern
+
+**Full docs:**
+- `$AGENT_SWARM_PATH/WRITE.md` - Confidence scoring, UX-first requirements
+- `$AGENT_SWARM_PATH/READ.md` - Query patterns, task boundaries
 
 ---
 
