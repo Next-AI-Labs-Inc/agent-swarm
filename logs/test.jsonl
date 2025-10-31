@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-10-31T05:01:39Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_50123",
+  "repo": "test",
+  "event_type": "pattern",
+  "context": "Testing agent knowledge system setup",
+  "command": "",
+  "lesson": "JSONL logging system works correctly with atomic writes",
+  "success_rate": "1/1",
+  "tags": [
+    "test",
+    "setup",
+    "verification"
+  ]
+}
