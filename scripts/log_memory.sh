@@ -12,6 +12,7 @@ COMMAND=""
 LESSON=""
 TAGS=""
 SUCCESS_RATE=""
+CONFIDENCE=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -22,6 +23,7 @@ while [[ $# -gt 0 ]]; do
     --lesson) LESSON="$2"; shift 2 ;;
     --tags) TAGS="$2"; shift 2 ;;
     --success-rate) SUCCESS_RATE="$2"; shift 2 ;;
+    --confidence) CONFIDENCE="$2"; shift 2 ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
 done
@@ -29,8 +31,16 @@ done
 # Validate required fields
 if [[ -z "$REPO" ]] || [[ -z "$TYPE" ]] || [[ -z "$CONTEXT" ]] || [[ -z "$LESSON" ]]; then
   echo "Error: Missing required fields"
-  echo "Usage: $0 --repo <name> --type <error|success|pattern> --context <string> --lesson <string> [--command <string>] [--tags <comma,separated>] [--success-rate <X/Y>]"
+  echo "Usage: $0 --repo <name> --type <error|success|pattern|intent> --context <string> --lesson <string> --confidence <1-10> [--command <string>] [--tags <comma,separated>] [--success-rate <X/Y>]"
   exit 1
+fi
+
+# Validate confidence score
+if [[ -n "$CONFIDENCE" ]]; then
+  if ! [[ "$CONFIDENCE" =~ ^[1-9]$|^10$ ]]; then
+    echo "Error: --confidence must be between 1 and 10"
+    exit 1
+  fi
 fi
 
 # Determine script location and log directory
@@ -64,6 +74,7 @@ JSON=$(jq -n \
   --arg cmd "$COMMAND" \
   --arg lesson "$LESSON" \
   --arg sr "$SUCCESS_RATE" \
+  --arg conf "$CONFIDENCE" \
   --argjson tags "$TAG_ARRAY" \
   '{
     timestamp: $ts,
@@ -74,6 +85,7 @@ JSON=$(jq -n \
     command: $cmd,
     lesson: $lesson,
     success_rate: $sr,
+    confidence: $conf,
     tags: $tags
   }')
 
