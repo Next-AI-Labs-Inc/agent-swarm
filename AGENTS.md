@@ -2,11 +2,17 @@
 
 **CRITICAL: What "Save Memories" Means**
 
-When instructed to "save memories" or "log what you learned":
+When instructed to "save memories", "save lessons", or "add to swarm knowledge":
 - ❌ **DO NOT** create .md files, text files, or documentation
-- ✅ **DO** run `$AGENT_SWARM_PATH/scripts/log_memory.sh` with your findings
+- ✅ **DO** run the memory logging script with your findings
 
 This logs to **shared institutional knowledge** that all agents can query.
+
+**All these commands do the same thing:**
+- `$AGENT_SWARM_PATH/scripts/log_memory.sh`
+- `$AGENT_SWARM_PATH/scripts/save_memories`
+- `$AGENT_SWARM_PATH/scripts/save_lessons`
+- `$AGENT_SWARM_PATH/scripts/add_to_swarm_knowledge`
 
 **Are you a local agent or cloud agent?**
 
@@ -52,10 +58,11 @@ jq -c 'select(.context | test("AuthMiddleware"; "i"))' $AGENT_SWARM_PATH/logs/*.
 
 ### WRITE: How to Save Memories
 
-**When user says "save memories" or "log what you learned" - DO THIS:**
+**When user says "save memories", "save lessons", or "add to swarm knowledge" - DO THIS:**
 
 ```bash
-$AGENT_SWARM_PATH/scripts/log_memory.sh \
+# All of these work:
+$AGENT_SWARM_PATH/scripts/save_memories \
   --repo "REPO_NAME" \
   --type "error|success|pattern|intent" \
   --context "What you were doing" \
