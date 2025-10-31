@@ -1,0 +1,52 @@
+{
+  "timestamp": "2025-10-31T05:28:55Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_84795",
+  "repo": "agent-swarm",
+  "event_type": "pattern",
+  "context": "Swarm intelligence pattern - JSONL append-only + jq/MCP retrieval",
+  "command": "",
+  "lesson": "use append-only JSONL per repo; agents never read full logs into context; retrieval is keyword/semantic via jq/MCP returning top-5 summaries to keep context small",
+  "success_rate": "10/10",
+  "tags": [
+    "swarm",
+    "memory",
+    "jsonl",
+    "jq",
+    "mcp",
+    "context"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:06Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85080",
+  "repo": "agent-swarm",
+  "event_type": "pattern",
+  "context": "Making code portable for OSS - environment variables vs hardcoded paths",
+  "command": "",
+  "lesson": "when creating OSS from internal code replace hardcoded paths like /Users/jedi/path with env vars like $AGENT_SWARM_PATH - add .gitignore to block private data (logs/*.jsonl) - document setup in README requiring users to export env var",
+  "success_rate": "5/5",
+  "tags": [
+    "oss",
+    "portability",
+    "environment-variables",
+    "privacy"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:29:15Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_85307",
+  "repo": "agent-swarm",
+  "event_type": "intent",
+  "context": "When agents should log memories to swarm system",
+  "command": "",
+  "lesson": "ALWAYS log at task boundaries: after completing task (state UX intent fulfilled) after learning code intent (WHY at any level) after overcoming error after resolving misunderstanding after discovering pattern - capture intent at appropriate abstraction level (component module feature system organism) - holonic nature matters",
+  "success_rate": "",
+  "tags": [
+    "swarm",
+    "memory",
+    "logging",
+    "intent",
+    "holonic",
+    "task-boundaries"
+  ]
+}

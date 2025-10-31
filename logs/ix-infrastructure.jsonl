@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-10-31T05:27:16Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_83051",
+  "repo": "ix-infrastructure",
+  "event_type": "pattern",
+  "context": "GitHub organization structure for Next AI Labs",
+  "command": "",
+  "lesson": "all code repos must go to Next-AI-Labs-Inc organization (not jryanhaber personal account) - this is the standard for all projects",
+  "success_rate": "",
+  "tags": [
+    "github",
+    "org",
+    "infrastructure",
+    "deployment"
+  ]
+}
+{
+  "timestamp": "2025-10-31T05:27:26Z",
+  "agent_id": "agent_Next-AI-Labs-M4-Macbook_83248",
+  "repo": "ix-infrastructure",
+  "event_type": "error",
+  "context": "gh repo create with SSH fails - git push returns publickey permission denied",
+  "command": "git remote set-url origin https://github.com/Next-AI-Labs-Inc/REPO.git && git push",
+  "lesson": "user environment requires HTTPS for git operations - SSH auth not configured - always use https:// URLs for remotes",
+  "success_rate": "5/5",
+  "tags": [
+    "git",
+    "github",
+    "ssh",
+    "https",
+    "auth"
+  ]
+}
