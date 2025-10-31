@@ -1,5 +1,13 @@
 # Instructions for AI Agents
 
+**CRITICAL: What "Save Memories" Means**
+
+When instructed to "save memories" or "log what you learned":
+- ❌ **DO NOT** create .md files, text files, or documentation
+- ✅ **DO** run `$AGENT_SWARM_PATH/scripts/log_memory.sh` with your findings
+
+This logs to **shared institutional knowledge** that all agents can query.
+
 **Are you a local agent or cloud agent?**
 
 ## 🏠 LOCAL AGENTS (Running on developer's machine)
@@ -44,7 +52,7 @@ jq -c 'select(.context | test("AuthMiddleware"; "i"))' $AGENT_SWARM_PATH/logs/*.
 
 ### WRITE: How to Save Memories
 
-**REQUIRED:** Include `--confidence` score on EVERY memory.
+**When user says "save memories" or "log what you learned" - DO THIS:**
 
 ```bash
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
@@ -56,6 +64,18 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --confidence 10 \
   --success-rate "X/Y"
 ```
+
+**NOT THIS:**
+```bash
+# ❌ WRONG - Do not do this
+cat > memories.md << EOF
+# What I Learned
+- Thing 1
+- Thing 2
+EOF
+```
+
+**REQUIRED:** Include `--confidence` score on EVERY memory.
 
 **Confidence scale:**
 - 10 = You tested it and saw the exact result (ONLY use 10 if verified)

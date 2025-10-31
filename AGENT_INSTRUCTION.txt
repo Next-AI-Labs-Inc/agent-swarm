@@ -1,1 +1,3 @@
-Read /Users/jedi/react_projects/ix/agent-knowledge/WRITE.md and /Users/jedi/react_projects/ix/agent-knowledge/READ.md to learn how to capture and retrieve institutional knowledge across all agents working in this codebase.
+Read $AGENT_SWARM_PATH/AGENTS.md first to determine if you are a local or cloud agent, then follow the appropriate instructions to access institutional knowledge across all agents working in this codebase.
+
+CRITICAL: When instructed to "save memories" or "log what you learned" - run $AGENT_SWARM_PATH/scripts/log_memory.sh with your findings. DO NOT create .md files or documentation - use the log_memory.sh script to write to shared institutional knowledge that all agents can query.

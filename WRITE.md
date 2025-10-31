@@ -30,7 +30,7 @@
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-frontend" \
   --type "success" \
-  --context "Dark mode toggle on /settings page persistence" \
+  --context "When user toggles dark mode in /settings" \
   --lesson "When user clicks dark mode toggle in /settings, SettingsPage.js calls updateUserPreferences() which writes theme='dark' to user_preferences table. This triggers themeChanged event that ThemeContext.js listens for, causing it to update React context state. All components using useTheme() hook then re-render with dark styles. On browser refresh or new session, App.js componentDidMount reads user_preferences.theme from database before first render and initializes ThemeContext with saved value, so user sees dark theme immediately without flash of light theme." \
   --tags "ui,theme,darkmode,settings,persistence,database" \
   --confidence 10 \
@@ -42,7 +42,7 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-frontend" \
   --type "error" \
-  --context "npm run build fails with MODULE_NOT_FOUND for @mui/material" \
+  --context "When npm run build fails with MODULE_NOT_FOUND for @mui/material" \
   --lesson "When running npm install in this repo, npm tries to install @mui/material v5 with React 18, but repo uses React 17. This creates peer dependency conflict causing build to fail when webpack tries to resolve @mui/material imports. Running 'npm install --legacy-peer-deps' tells npm to ignore peer dependency warnings and install @mui/material v4 which works with React 17. Build then succeeds because all dependencies resolve correctly." \
   --command "npm install --legacy-peer-deps" \
   --tags "build,npm,deps,mui,react,peer-deps" \
@@ -55,7 +55,7 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-api" \
   --type "intent" \
-  --context "Session creation validation flow in POST /api/sessions" \
+  --context "When user submits login form to POST /api/sessions" \
   --lesson "When user submits login form, request hits POST /api/sessions endpoint. Validation does NOT happen in AuthMiddleware (like other routes) because SessionsController.create() needs access to unvalidated user object to initialize session with partial data before full auth completes. If validation were in middleware, middleware would reject request before controller could create session record. This is single source of truth for session creation - no other endpoint creates sessions - so validation logic must live here in controller where session creation happens." \
   --tags "api,sessions,validation,architecture,auth-flow" \
   --confidence 9
@@ -66,7 +66,7 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-api" \
   --type "intent" \
-  --context "Auth middleware vs inline validation in session creation" \
+  --context "When trying to understand where auth validation happens for login" \
   --lesson "I assumed AuthMiddleware.js handled all authentication because most protected routes use it. But when user logs in via POST /api/sessions, AuthMiddleware is NOT in the middleware chain for this route (verified in routes/sessions.js). Instead, SessionsController.create() validates credentials inline using bcrypt.compare() on submitted password. This happens because at login time there is no existing session to validate - we are creating the first session. AuthMiddleware only validates existing sessions on subsequent requests. The architectural reason: session creation is bootstrapping auth state, so it cannot depend on auth middleware that assumes auth state already exists." \
   --tags "auth,sessions,middleware,architecture,bootstrap" \
   --confidence 9
@@ -77,7 +77,7 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
 $AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "ix-monorepo" \
   --type "pattern" \
-  --context "Component structure in all gen3 features" \
+  --context "When creating new feature modules in /src/features" \
   --lesson "Every feature module under /src/features follows the same structure: .gen3-root wrapper div contains multiple .gen3-section divs, each section contains .gen3-card components. This mirrors holonic design (organism > molecule > atom). When developer creates new feature, this structure must be preserved - never flatten by putting cards directly in root, never create intermediate wrappers between sections and cards. This pattern exists because gen3-design-system.css applies responsive breakpoints, spacing, and theme styles based on this exact hierarchy. Breaking the hierarchy causes styles to fail because CSS selectors expect this structure." \
   --tags "architecture,gen3,components,holonic,css,design-system" \
   --confidence 8
@@ -87,12 +87,35 @@ $AGENT_SWARM_PATH/scripts/log_memory.sh \
 
 - `--repo` - Semantic name (can be feature, system, or actual repo name)
 - `--type` - `error`, `success`, `pattern`, or `intent`
-- `--context` - WHAT (specific enough to search later)
-- `--lesson` - WHY or HOW (the actionable knowledge)
+- `--context` - **The trigger condition** (when this situation occurs, when agent is doing X)
+- `--lesson` - **The knowledge gained** (what happens, why it matters, how to handle it)
 - `--command` - Optional: exact command that worked
 - `--tags` - Keywords for retrieval
 - `--success-rate` - Optional: X/Y format (how reliable is this?)
 - `--confidence` - **REQUIRED:** 1-10 scale (see below)
+
+### Context vs Lesson
+
+**Context** = The situation that triggers this knowledge
+- "When trying to access Google Drive"
+- "When npm install fails with EACCES"
+- "When user's session token expires after 2 hours"
+- "When deploying to production"
+
+**Lesson** = The complete knowledge about what happens and why
+- Full UX journey showing user actions, system behavior, technical cause, result
+
+**WRONG:**
+```bash
+--context "Clarified Google Drive credential requirements"
+--lesson "Need OAuth or service account"
+```
+
+**RIGHT:**
+```bash
+--context "When trying to access Google Drive from cloud agent"
+--lesson "Cloud agents need OAuth client credentials with refresh token or shared service account JSON to search Drive. Username/password alone cannot be used in automation because Google blocks non-interactive login attempts. This means when agent needs Drive access, human must provide either: 1) OAuth credentials JSON with refresh_token field populated, or 2) service account JSON with appropriate Drive API scopes. Without these, agent will get 401 Unauthorized when attempting DriveService.files().list()."
+```
 
 **Always log at the appropriate level of abstraction** - component intent, module intent, feature intent, system intent. The holonic nature matters.
 
