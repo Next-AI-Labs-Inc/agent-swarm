@@ -13,6 +13,7 @@ LESSON=""
 TAGS=""
 SUCCESS_RATE=""
 CONFIDENCE=""
+TIMESTAMP=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -24,6 +25,7 @@ while [[ $# -gt 0 ]]; do
     --tags) TAGS="$2"; shift 2 ;;
     --success-rate) SUCCESS_RATE="$2"; shift 2 ;;
     --confidence) CONFIDENCE="$2"; shift 2 ;;
+    --timestamp) TIMESTAMP="$2"; shift 2 ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
 done
@@ -72,8 +74,10 @@ mkdir -p "$LOG_DIR"
 # Generate agent ID (hostname + timestamp hash for uniqueness)
 AGENT_ID="agent_$(hostname -s)_$$"
 
-# Get ISO timestamp
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+# Get ISO timestamp (use provided or current)
+if [[ -z "$TIMESTAMP" ]]; then
+  TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+fi
 
 # Convert comma-separated tags to JSON array
 if [[ -n "$TAGS" ]]; then

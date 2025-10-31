@@ -62,19 +62,32 @@ cd /Users/jedi/react_projects/ix/gptcoach2
 export AGENT_SWARM_PATH="/Users/jedi/react_projects/ix/agent-swarm-mcp"
 
 # Start reviewing commits from today backwards
-git log --oneline --since="30 days ago" -50 | while read commit_hash commit_msg; do
+git log --format="%H|%aI|%s" --since="30 days ago" -50 | while IFS='|' read commit_hash commit_date commit_msg; do
   # For each commit, capture what you learn
   git show $commit_hash --stat
   
-  # Then save memories about it
+  # CRITICAL: Use commit's actual timestamp, not current time
   $AGENT_SWARM_PATH/scripts/save_memories \
     --repo "gptcoach2" \
     --type "intent" \
-    --context "When analyzing commit $commit_hash: $commit_msg" \
+    --context "When $commit_msg" \
     --lesson "Full UX journey of what this commit accomplished..." \
     --tags "commit-analysis,git-history,ux-intent,kpi-name" \
-    --confidence 9
+    --confidence 9 \
+    --timestamp "$commit_date"
 done
+```
+
+**CRITICAL: Use --timestamp for historical commits!**
+
+When capturing memories from git history, ALWAYS use the commit's actual date via `--timestamp`, not the current time. This preserves the true timeline of when features were built.
+
+```bash
+# Get commit date
+COMMIT_DATE=$(git show -s --format=%aI $commit_hash)
+
+# Use it in memory
+--timestamp "$COMMIT_DATE"
 ```
 
 ### Memory Format Requirements
