@@ -260,6 +260,309 @@ async function addMemory({ repo, context, lesson, tags = [], metadata = {}, even
   return { success: true, memory };
 }
 
+/**
+ * KPI Impact Weights (configurable per system)
+ */
+const KPI_WEIGHTS = {
+  churn_reduction: 1.5,
+  conversion_increase: 2.0,
+  velocity_improvement: 1.2,
+  quality_improvement: 1.3,
+  revenue_impact: 2.5,
+  user_experience: 1.4,
+  security: 1.8,
+  observability: 1.1,
+  debt_reduction: 0.9
+};
+
+/**
+ * Task lifecycle state values (higher = more mature)
+ */
+const LIFECYCLE_STAGES = {
+  brainstorm: 1,
+  planned: 2,
+  in_progress: 3,
+  testing: 4,
+  blocked: 2.5,
+  production: 5,
+  deprecated: 0
+};
+
+/**
+ * Calculate leverage score for a task memory
+ * Leverage = (Impact × Confidence) / (Effort × Friction)
+ */
+function calculateLeverageScore(memory) {
+  // Extract metadata
+  const meta = memory.metadata || {};
+  const tags = memory.tags || [];
+  
+  // 1. Calculate lifecycle stage value
+  const stage = meta.lifecycle_state || 'planned';
+  const stageValue = LIFECYCLE_STAGES[stage] || 2;
+  
+  // 2. Estimate effort (LOC, complexity, file count)
+  let effortScore = 1;
+  
+  if (meta.estimated_loc) {
+    effortScore += meta.estimated_loc / 100; // 100 LOC = +1 effort
+  }
+  if (meta.file_count) {
+    effortScore += meta.file_count * 0.5; // Each file adds 0.5 effort
+  }
+  if (meta.complexity) {
+    const complexityMap = { low: 1, medium: 2, high: 4, critical: 6 };
+    effortScore *= complexityMap[meta.complexity] || 2;
+  }
+  
+  // 3. Calculate KPI impact
+  let impactScore = 0;
+  
+  if (meta.kpi_impact && Array.isArray(meta.kpi_impact)) {
+    meta.kpi_impact.forEach(kpi => {
+      impactScore += KPI_WEIGHTS[kpi] || 1;
+    });
+  } else {
+    // Default impact if not specified
+    impactScore = 1;
+  }
+  
+  // 4. Check for blockers (friction multiplier)
+  let frictionMultiplier = 1;
+  
+  if (tags.includes('blocked') || stage === 'blocked') {
+    frictionMultiplier = 3; // High friction for blocked tasks
+  }
+  if (meta.dependencies && meta.dependencies.length > 0) {
+    frictionMultiplier *= (1 + meta.dependencies.length * 0.2);
+  }
+  
+  // 5. Momentum bonus (recent work in related area)
+  let momentumBonus = 0;
+  const daysOld = (Date.now() - new Date(memory.timestamp).getTime()) / (1000 * 60 * 60 * 24);
+  
+  if (daysOld < 7) {
+    momentumBonus = 1.5; // Recent work gets momentum boost
+  } else if (daysOld < 30) {
+    momentumBonus = 1.2;
+  }
+  
+  // 6. Confidence factor
+  const confidenceFactor = (memory.confidence || 5) / 10;
+  
+  // Final leverage calculation
+  const leverage = ((impactScore * confidenceFactor * (1 + momentumBonus)) / (effortScore * frictionMultiplier)) * stageValue;
+  
+  return {
+    leverage: Math.round(leverage * 100) / 100,
+    breakdown: {
+      impactScore,
+      effortScore,
+      frictionMultiplier,
+      momentumBonus,
+      confidenceFactor,
+      stageValue
+    }
+  };
+}
+
+/**
+ * Suggest next task based on leverage scoring
+ */
+async function suggestNextTask({ repo = null, limit = 3, minConfidence = 5, kpiFilter = null, taskTypeFilter = null }) {
+  let allMemories = [];
+  
+  // Load from specific repo or all repos
+  if (repo) {
+    allMemories = await loadMemories(repo);
+  } else {
+    const repos = ["gptcoach2", "ixcoach-api", "ixcoach-landing", "ixcoach-react-native", "shared-tools"];
+    const memoriesPerRepo = await Promise.all(repos.map((r) => loadMemories(r)));
+    allMemories = memoriesPerRepo.flat();
+  }
+  
+  // Filter task-related memories (exclude deprecated, completed)
+  const taskMemories = allMemories.filter(m => {
+    const meta = m.metadata || {};
+    const lifecycle = meta.lifecycle_state;
+    const tags = m.tags || [];
+    
+    // Exclude deprecated and production tasks
+    if (lifecycle === 'deprecated' || lifecycle === 'production') return false;
+    
+    // Filter by KPI if specified
+    if (kpiFilter && meta.kpi_impact) {
+      if (!meta.kpi_impact.includes(kpiFilter)) return false;
+    }
+    
+    // Filter by task type if specified
+    if (taskTypeFilter) {
+      const typeMap = {
+        'maintenance': ['maintenance', 'refactor', 'cleanup', 'debt', 'technical-debt', 'debt_reduction'],
+        'bug': ['bug', 'fix', 'hotfix', 'regression'],
+        'feature': ['feature', 'enhancement', 'new'],
+        'improvement': ['improvement', 'optimization', 'performance'],
+        'quick-win': ['quick-win', 'easy', 'low-hanging-fruit']
+      };
+      
+      const requiredTags = typeMap[taskTypeFilter] || [taskTypeFilter];
+      const hasTypeTag = requiredTags.some(tag => tags.includes(tag));
+      
+      // Also check KPI for maintenance (debt_reduction)
+      const hasTypeKPI = taskTypeFilter === 'maintenance' && 
+                         meta.kpi_impact && 
+                         meta.kpi_impact.includes('debt_reduction');
+      
+      if (!hasTypeTag && !hasTypeKPI) return false;
+    }
+    
+    // Include tasks with clear development state or intent tag
+    if (tags.includes('task') || tags.includes('feature') || tags.includes('bug') || tags.includes('improvement')) {
+      return (m.confidence || 0) >= minConfidence;
+    }
+    
+    // Include if has lifecycle metadata
+    return lifecycle && (m.confidence || 0) >= minConfidence;
+  });
+  
+  // Calculate leverage for each task
+  const scoredTasks = taskMemories.map(memory => {
+    const { leverage, breakdown } = calculateLeverageScore(memory);
+    return {
+      memory,
+      leverage,
+      breakdown
+    };
+  });
+  
+  // Sort by leverage (highest first)
+  scoredTasks.sort((a, b) => b.leverage - a.leverage);
+  
+  return scoredTasks.slice(0, limit);
+}
+
+/**
+ * Daily checkup - operational health check items
+ */
+async function getDailyCheckup({ repo = null }) {
+  let allMemories = [];
+  
+  // Load from specific repo or all repos
+  if (repo) {
+    allMemories = await loadMemories(repo);
+  } else {
+    const repos = ["gptcoach2", "ixcoach-api", "ixcoach-landing", "ixcoach-react-native", "shared-tools"];
+    const memoriesPerRepo = await Promise.all(repos.map((r) => loadMemories(r)));
+    allMemories = memoriesPerRepo.flat();
+  }
+  
+  // Filter for checkup items (tagged with 'daily-checkup' or 'health-check')
+  const checkupItems = allMemories.filter(m => {
+    const tags = m.tags || [];
+    return tags.includes('daily-checkup') || tags.includes('health-check') || tags.includes('monitoring');
+  });
+  
+  // Sort by priority (use confidence as proxy for priority)
+  checkupItems.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+  
+  return checkupItems;
+}
+
+/**
+ * Format daily checkup items for display
+ */
+function formatDailyCheckup(items) {
+  if (items.length === 0) {
+    return "No daily checkup items configured. Add memories with tags 'daily-checkup' or 'health-check' to create your checklist.";
+  }
+  
+  let output = `**🩺 Daily Health Checkup**\n\n`;
+  output += `Run through these ${items.length} checks to stay on top of operations:\n\n`;
+  
+  items.forEach((item, idx) => {
+    const meta = item.metadata || {};
+    const prompt = meta.gpt_prompt || null;
+    const tool = meta.tool || null;
+    const url = meta.url || null;
+    
+    output += `**${idx + 1}. ${item.context}**\n`;
+    output += `   📋 ${item.lesson}\n`;
+    
+    if (prompt) {
+      output += `   💬 GPT Prompt: "${prompt}"\n`;
+    }
+    
+    if (tool) {
+      output += `   🔧 Tool: ${tool}\n`;
+    }
+    
+    if (url) {
+      output += `   🔗 ${url}\n`;
+    }
+    
+    if (item.tags && item.tags.length > 0) {
+      const displayTags = item.tags.filter(t => !['daily-checkup', 'health-check', 'monitoring'].includes(t));
+      if (displayTags.length > 0) {
+        output += `   🏷️  ${displayTags.join(", ")}\n`;
+      }
+    }
+    
+    output += "\n";
+  });
+  
+  output += "---\n";
+  output += "✅ Check off each item as you complete it. Reply 'done' when finished.\n";
+  
+  return output;
+}
+
+/**
+ * Format task suggestions for display
+ */
+function formatTaskSuggestions(tasks) {
+  if (tasks.length === 0) {
+    return "No tasks found. Try adding task memories with metadata like:\n" +
+           "- lifecycle_state: 'planned', 'in_progress', 'testing'\n" +
+           "- kpi_impact: ['churn_reduction', 'conversion_increase']\n" +
+           "- estimated_loc: 150\n" +
+           "- complexity: 'medium'";
+  }
+  
+  let output = `**🎯 Prioritized Tasks by Leverage Score**\n\n`;
+  
+  tasks.forEach((task, idx) => {
+    const { memory, leverage, breakdown } = task;
+    const meta = memory.metadata || {};
+    const date = new Date(memory.timestamp).toISOString().split("T")[0];
+    
+    output += `**${idx + 1}. [Leverage: ${leverage}] ${memory.context}**\n`;
+    output += `   📍 Repo: ${memory.repo} | State: ${meta.lifecycle_state || 'unknown'}\n`;
+    output += `   💡 ${memory.lesson}\n`;
+    
+    if (meta.kpi_impact && meta.kpi_impact.length > 0) {
+      output += `   📊 Impact: ${meta.kpi_impact.join(", ")}\n`;
+    }
+    
+    if (breakdown) {
+      output += `   🔍 Scoring: Impact=${breakdown.impactScore.toFixed(1)}, ` +
+               `Effort=${breakdown.effortScore.toFixed(1)}, ` +
+               `Friction=${breakdown.frictionMultiplier.toFixed(1)}x\n`;
+    }
+    
+    if (meta.dependencies && meta.dependencies.length > 0) {
+      output += `   ⚠️  Dependencies: ${meta.dependencies.join(", ")}\n`;
+    }
+    
+    if (memory.tags && memory.tags.length > 0) {
+      output += `   🏷️  Tags: ${memory.tags.join(", ")}\n`;
+    }
+    
+    output += `   🕐 Last updated: ${date}\n\n`;
+  });
+  
+  return output;
+}
+
 // Create MCP server
 const server = new Server(
   {
@@ -405,6 +708,54 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ["repo"],
         },
       },
+      {
+        name: "daily_checkup",
+        description:
+          "Get daily operational health checkup - a walkthrough of important monitoring, metrics, and health checks. Use when user asks: 'How are things going?', 'Daily checkup?', 'What should I monitor?', 'Health check?'",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repo: {
+              type: "string",
+              description: "Optional: filter by specific repo (gptcoach2, ixcoach-api, etc.)",
+            },
+          },
+          required: [],
+        },
+      },
+      {
+        name: "suggest_next_task",
+        description:
+          "Analyze task memories and suggest highest leverage next steps based on impact/effort ratio, KPI alignment, momentum, and blockers. Aliases: 'what_should_i_work_on', 'highest_leverage_tasks', 'prioritize_by_kpi'. Use this when user asks: 'What should I work on?', 'What's highest leverage?', 'What will support churn/conversion/velocity?'",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repo: {
+              type: "string",
+              description: "Optional: filter by specific repo (gptcoach2, ixcoach-api, etc.)",
+            },
+            limit: {
+              type: "number",
+              description: "Max number of task suggestions to return (default: 3, show 3-5 for visibility)",
+              default: 3,
+            },
+            min_confidence: {
+              type: "number",
+              description: "Minimum confidence threshold (1-10, default: 5)",
+              default: 5,
+            },
+            kpi_filter: {
+              type: "string",
+              description: "Optional: filter by specific KPI (churn_reduction, conversion_increase, velocity_improvement, quality_improvement, revenue_impact, user_experience, security, observability)",
+            },
+            task_type_filter: {
+              type: "string",
+              description: "Optional: filter by task type (maintenance, bug, feature, improvement, quick-win). Use 'maintenance' for tech debt, refactoring, cleanup tasks.",
+            },
+          },
+          required: [],
+        },
+      },
     ],
   };
 });
@@ -494,6 +845,42 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           text: result.success
             ? `✅ Removed ${result.removedCount} memor${result.removedCount === 1 ? 'y' : 'ies'} from ${repo}`
             : `❌ Failed: ${result.error}`,
+        },
+      ],
+    };
+  }
+
+  if (name === "daily_checkup") {
+    const { repo } = args;
+    
+    const items = await getDailyCheckup({ repo });
+    
+    return {
+      content: [
+        {
+          type: "text",
+          text: formatDailyCheckup(items),
+        },
+      ],
+    };
+  }
+
+  if (name === "suggest_next_task") {
+    const { repo, limit = 3, min_confidence = 5, kpi_filter, task_type_filter } = args;
+    
+    const tasks = await suggestNextTask({
+      repo,
+      limit,
+      minConfidence: min_confidence,
+      kpiFilter: kpi_filter,
+      taskTypeFilter: task_type_filter,
+    });
+    
+    return {
+      content: [
+        {
+          type: "text",
+          text: formatTaskSuggestions(tasks),
         },
       ],
     };
