@@ -12,6 +12,20 @@
 
 ## How to Log
 
+**CRITICAL: Keep Memories Atomic**
+
+Each memory should capture ONE specific thing:
+- One feature's behavior
+- One fix for one issue
+- One discovered pattern
+- One piece of intent
+
+**Target size: 3-5 sentences (typically 200-800 characters)**
+
+If your lesson is >800 characters, break it into multiple atomic memories.
+
+**Why?** Preserves context windows when agents query memories.
+
 ```bash
 /Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
   --repo "SEMANTIC_NAME" \
@@ -21,6 +35,25 @@
   --command "Command that worked (if applicable)" \
   --tags "keyword,tags,for,search" \
   --success-rate "X/Y"
+```
+
+## Atomic vs Bloated Memories
+
+**❌ TOO BIG (1200 characters) - Don't do this:**
+```bash
+--lesson "In commit a3b4c5d we added SEO landing pages with multiple features including meta tags, Open Graph tags, JSON-LD schema markup for search engines, dynamic sitemap generation, robots.txt configuration, canonical URLs to prevent duplicate content penalties, Twitter card integration for social sharing, and performance optimizations like lazy loading images and code splitting for faster initial page load which improves Core Web Vitals scores that Google uses for ranking and we also added analytics tracking to measure conversion rates from organic search traffic and implemented A/B testing framework to optimize headline copy and CTA button placement based on user engagement metrics..."
+```
+
+**✅ ATOMIC (3 separate memories):**
+```bash
+# Memory 1: SEO meta tags
+--lesson "When search engines crawl /landing pages, MetaTags component in layout.js now injects Open Graph tags and JSON-LD schema. This makes pages appear with rich previews in Google search results and social shares."
+
+# Memory 2: Dynamic sitemap
+--lesson "When deploying, build script now generates sitemap.xml from routes array. Search engines discover all landing pages automatically instead of requiring manual sitemap updates."
+
+# Memory 3: Performance optimization
+--lesson "When users visit landing pages, images lazy load and code splits per route. This reduced initial bundle size from 450KB to 180KB, improving Time to Interactive by 2.1 seconds."
 ```
 
 ### Examples (WITH REQUIRED CONFIDENCE SCORES)

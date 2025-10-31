@@ -43,6 +43,24 @@ if [[ -n "$CONFIDENCE" ]]; then
   fi
 fi
 
+# Check lesson size and warn if too large
+LESSON_LENGTH=${#LESSON}
+if [[ $LESSON_LENGTH -gt 800 ]]; then
+  echo ""
+  echo "⚠️  WARNING: Your lesson is $LESSON_LENGTH characters (recommended: <800)"
+  echo ""
+  echo "For optimal context window preservation, memories should be atomic and focused."
+  echo "Each memory should capture ONE specific thing (one feature, one fix, one pattern)."
+  echo ""
+  echo "Typical format: 3-5 sentences explaining the specific behavior."
+  echo ""
+  echo "Options:"
+  echo "  1. Press Enter to commit this large memory anyway"
+  echo "  2. Press Ctrl+C to cancel and break into atomic memories"
+  echo ""
+  read -p "Commit large memory? [Enter=yes, Ctrl+C=cancel]: "
+fi
+
 # Determine script location and log directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_DIR="$(dirname "$SCRIPT_DIR")/logs"

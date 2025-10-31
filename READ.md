@@ -82,3 +82,21 @@ Each result shows:
 - Use specific keywords: "build", "deploy", "auth", "api", "gen3"
 - Look for `type == "intent"` to understand WHY code exists
 - Check success_rate - high numbers mean proven solutions
+- Limit results to preserve context: `| tail -10` or `| head -5`
+
+## Handling Oversized Memories
+
+If you encounter memories >800 characters:
+
+```bash
+# Truncate long lessons to first 400 chars
+jq -c 'select(.tags[] | test("npm"; "i"))' $AGENT_SWARM_PATH/logs/*.jsonl | \
+  jq -r '.lesson |= (if length > 400 then .[0:400] + "..." else . end) | "[\(.confidence)/10] \(.lesson)"' | \
+  tail -10
+```
+
+Or filter by confidence to get only verified, concise memories:
+```bash
+# Only show high-confidence (9-10) memories
+jq -c 'select((.confidence | tonumber) >= 9)' $AGENT_SWARM_PATH/logs/*.jsonl
+```
