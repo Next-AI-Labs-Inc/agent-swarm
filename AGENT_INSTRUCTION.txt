@@ -1,3 +1,6 @@
-Read $AGENT_SWARM_PATH/AGENTS.md first to determine if you are a local or cloud agent, then follow the appropriate instructions to access institutional knowledge across all agents working in this codebase.
+First, set your environment variable if not already set:
+export AGENT_SWARM_PATH="/Users/jedi/react_projects/ix/agent-swarm-mcp"
 
-CRITICAL: When instructed to "save memories" or "log what you learned" - run $AGENT_SWARM_PATH/scripts/log_memory.sh with your findings. DO NOT create .md files or documentation - use the log_memory.sh script to write to shared institutional knowledge that all agents can query.
+Then read $AGENT_SWARM_PATH/AGENTS.md to determine if you are a local or cloud agent, and follow the appropriate instructions to access institutional knowledge across all agents working in this codebase.
+
+CRITICAL: When instructed to "save memories", "save lessons", or "add to swarm knowledge" - run $AGENT_SWARM_PATH/scripts/save_memories (or save_lessons or add_to_swarm_knowledge) with your findings. DO NOT create .md files or documentation - use the logging scripts to write to shared institutional knowledge that all agents can query.

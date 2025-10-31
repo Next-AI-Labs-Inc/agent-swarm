@@ -1,5 +1,17 @@
 # Instructions for AI Agents
 
+## First Time Setup
+
+If you're reading this from a directory outside of `/Users/jedi/react_projects/ix/agent-swarm-mcp`, set your environment variable:
+
+```bash
+# Add to your session or shell profile
+export AGENT_SWARM_PATH="/Users/jedi/react_projects/ix/agent-swarm-mcp"
+
+# Then read these instructions
+cat $AGENT_SWARM_PATH/AGENTS.md
+```
+
 **CRITICAL: What "Save Memories" Means**
 
 When instructed to "save memories", "save lessons", or "add to swarm knowledge":
