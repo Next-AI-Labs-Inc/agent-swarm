@@ -13,7 +13,7 @@
 ## How to Log
 
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "SEMANTIC_NAME" \
   --type "error|success|pattern|intent" \
   --context "What you were doing or what component/system" \
@@ -23,11 +23,16 @@
   --success-rate "X/Y"
 ```
 
+**Setup:** Export `AGENT_SWARM_PATH` in your shell:
+```bash
+export AGENT_SWARM_PATH="/path/to/agent-swarm-mcp"
+```
+
 ### Examples
 
 **Task completed:**
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-frontend" \
   --type "success" \
   --context "Added dark mode toggle to settings page" \
@@ -37,7 +42,7 @@
 
 **Oversight resolved:**
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-frontend" \
   --type "error" \
   --context "build fails with module not found" \
@@ -49,7 +54,7 @@
 
 **Intent discovered:**
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-api" \
   --type "intent" \
   --context "POST /api/sessions validates user before creating session" \
@@ -59,7 +64,7 @@
 
 **Misunderstanding resolved:**
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "gptcoach-api" \
   --type "intent" \
   --context "thought middleware handled all auth but session creation validates inline" \
@@ -69,7 +74,7 @@
 
 **Pattern recognized:**
 ```bash
-/Users/jedi/react_projects/ix/agent-knowledge/scripts/log_memory.sh \
+$AGENT_SWARM_PATH/scripts/log_memory.sh \
   --repo "ix-monorepo" \
   --type "pattern" \
   --context "all feature modules follow gen3-root > sections > cards structure" \

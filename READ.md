@@ -28,19 +28,19 @@
 ```bash
 # Search by keyword
 jq -c 'select(.tags[] | test("KEYWORD"; "i"))' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"[\(.timestamp | split("T")[0])] \(.repo): \(.lesson)"' | \
   tail -10
 
 # Search by context (what was being done)
 jq -c 'select(.context | test("YOUR_QUERY"; "i"))' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"[\(.timestamp | split("T")[0])] \(.lesson)"' | \
   tail -10
 
 # Search specific repo
 jq -c 'select(.repo == "gptcoach-api")' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"[\(.event_type)] \(.lesson)"' | \
   tail -10
 ```
@@ -50,21 +50,21 @@ jq -c 'select(.repo == "gptcoach-api")' \
 **Before npm install:**
 ```bash
 jq -c 'select(.tags[] | test("npm"; "i"))' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"\(.lesson) (\(.success_rate))"' | tail -5
 ```
 
 **Before touching API routes:**
 ```bash
 jq -c 'select((.tags[] | test("api"; "i")) and .type == "intent")' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"\(.context)\n  → \(.lesson)\n"' | tail -20
 ```
 
 **Find architectural patterns:**
 ```bash
 jq -c 'select(.type == "pattern" or .type == "intent")' \
-  /Users/jedi/react_projects/ix/agent-knowledge/logs/*.jsonl | \
+  $AGENT_SWARM_PATH/logs/*.jsonl | \
   jq -r '"[\(.repo)] \(.lesson)"' | tail -15
 ```
 

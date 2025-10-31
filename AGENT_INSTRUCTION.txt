@@ -1,1 +1,1 @@
-Read /Users/jedi/react_projects/ix/agent-knowledge/WRITE.md and /Users/jedi/react_projects/ix/agent-knowledge/READ.md to learn how to capture and retrieve institutional knowledge across all agents working in this codebase.
+Read $AGENT_SWARM_PATH/WRITE.md and $AGENT_SWARM_PATH/READ.md to learn how to capture and retrieve institutional knowledge across all agents working in this codebase.

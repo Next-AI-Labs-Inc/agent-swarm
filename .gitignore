@@ -1,0 +1,18 @@
+# CRITICAL: Prevent private data from being committed to open-source version
+
+# All real memory logs (may contain private data)
+logs/*.jsonl
+!logs/.gitkeep
+
+# Node modules
+mcp-server/node_modules/
+mcp-server/package-lock.json
+
+# System files
+.DS_Store
+*.log
+
+# Private configuration
+config.private.*
+*.env
+.env.*
